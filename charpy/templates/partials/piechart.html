@@ -1,0 +1,23 @@
+<canvas id="pie-chart" width="600" height="400"></canvas>
+<script>
+   var pieData = [
+            {% for item,label,colors in set %}
+                {
+                    value: {{item}},
+                    label: "{{label}}",
+                    color : "{{colors}}"
+                },
+                {% endfor %}
+
+
+         ];
+
+   // get bar chart canvas
+   var mychart = document.getElementById("pie-chart").getContext("2d");
+
+   steps = 10
+   max = 10
+   // draw pie chart
+   new Chart(mychart).Pie(pieData);
+
+</script>
