@@ -1,0 +1,35 @@
+language: python
+
+sudo: false
+
+notifications:
+   email: false
+
+#For Pypandoc can work, pandoc needs to be installed
+addons:
+  apt_packages:
+    - pandoc
+
+python:
+  - 3.5
+
+before_install:
+  - pip install -U pip
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter # Code Climate coverage
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+# command to install dependencies
+install:
+  - python setup.py install
+
+# commands to run tests
+script:
+  - coverage run --source=charpy.app -m unittest
+  - coverage xml # For Codacy
+
+after_success:
+  - pip install charpy
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT    # Code Climate code coverage
+  - codecov                                                           # Codecov code coverage
+  - python-codacy-coverage -r coverage.xml                            # Codacy code coverage
