@@ -10,3 +10,4 @@
 /*.egg
 .idea/*
 .cache/*
+.DS_Store
