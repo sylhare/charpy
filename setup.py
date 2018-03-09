@@ -10,5 +10,5 @@ setup(name='charpy',
       author_email='sylhare@outlook.com',
       license='MIT',
       packages=['charpy'],
-      install_requires=['flask>=0.12'],
+      install_requires=['flask>=0.12, pypandoc'],
       zip_safe=False)
