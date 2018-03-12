@@ -38,7 +38,10 @@ def read_csv_column(path="demo.csv"):
     Will return
     [(label-A, 1, 2, 3), (label-B, 4, 5, 6)]
 
-    [('labels', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'), ('values', '10', '9', '8', '7', '6', '4', '7', '8'), ('colors', '#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC', '#BCAFED')]
+    Test value
+    [('labels', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'),
+    ('values', '10', '9', '8', '7', '6', '4', '7', '8'),
+    ('colors', '#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC', '#BCAFED')]
 
     :param path:
     :return:
