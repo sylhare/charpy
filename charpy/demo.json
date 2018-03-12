@@ -1,0 +1,42 @@
+[
+    {
+        "labels": "January",
+        "values": "10",
+        "colors": "#F7464A"
+    },
+    {
+        "labels": "February",
+        "values": "9",
+        "colors": "#46BFBD"
+    },
+    {
+        "labels": "March",
+        "values": "8",
+        "colors": "#FDB45C"
+    },
+    {
+        "labels": "April",
+        "values": "7",
+        "colors": "#FEDCBA"
+    },
+    {
+        "labels": "May",
+        "values": "6",
+        "colors": "#ABCDEF"
+    },
+    {
+        "labels": "June",
+        "values": "4",
+        "colors": "#DDDDDD"
+    },
+    {
+        "labels": "July",
+        "values": "7",
+        "colors": "#ABCABC"
+    },
+    {
+        "labels": "August",
+        "values": "8",
+        "colors": "#BCAFED"
+    }
+]
