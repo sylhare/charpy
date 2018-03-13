@@ -1,3 +1,4 @@
+flask
 setuptools
 pypandoc
 coverage==4.1
