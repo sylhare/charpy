@@ -61,4 +61,4 @@ def get_demo_data():
 if __name__ == "__main__":
     #csv_to_json("demo.csv")
     get_demo_data()
-    #readme_to_rst()
+    readme_to_rst()

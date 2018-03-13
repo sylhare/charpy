@@ -14,6 +14,6 @@ setup(name='charpy',
       author='sylhare',
       author_email='sylhare@outlook.com',
       license='MIT',
-      packages=find_packages("charpy", exclude=["test, docs"]),
+      packages=find_packages(exclude=["test, docs"]),
       install_requires=['flask>=0.12'],
       zip_safe=False)
