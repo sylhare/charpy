@@ -46,12 +46,12 @@ def get_demo_data():
     :param path:
     :return:
     """
-    parent_path = os.path.dirname(os.getcwd())
-    demo_file_path = os.path.join(parent_path, os.path.join("charpy", "demo.csv"))
+    parent_path = os.path.abspath(os.path.dirname(__file__))
+    demo_file_path = os.path.join(parent_path, "demo.csv")
 
     with io.open(demo_file_path, 'r', encoding='utf8') as f:
         reader = csv.reader((x.replace(u"\uFEFF", u"") for x in f))
-        #column_label = list(reader)[0]
+        # column_label = list(reader)[0]
         rows = list(reader)[1:]
         print(list(zip(*rows)))
 
@@ -62,4 +62,5 @@ if __name__ == "__main__":
     # csv_to_json("demo.csv")
     # get_demo_data()
     # readme_to_rst()
+    print(os.path.abspath(os.path.dirname(__file__)))
     pass
