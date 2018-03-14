@@ -6,7 +6,7 @@ simple_page = Blueprint('simple_page', __name__,
 
 
 @simple_page.route('/', defaults={'page': 'index'})
-@simple_page.route('/<page>')
+@simple_page.route('/pages/<page>')
 def show(page):
     try:
         # return render_template('pages/%s.html' % page) # To open the template corresponding of the url
