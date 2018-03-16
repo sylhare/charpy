@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-from charpy import toolbox
+from charpy.data_import.io_import import get_demo_data
 from charpy.blueprints.simple_page import simple_page
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ def chart_demo():
 
 @app.route("/chart")
 def chart_file():
-    labels, values, colors = toolbox.get_demo_data()
+    labels, values, colors = get_demo_data()
     return render_template('chart.html', values=values, labels=labels, set=zip(values, labels, colors))
 
 

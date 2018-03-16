@@ -47,13 +47,13 @@ def get_demo_data():
     :return:
     """
     parent_path = os.path.abspath(os.path.dirname(__file__))
-    demo_file_path = os.path.join(os.path.dirname(parent_path), os.path.join("data", "example", "demo.csv"))
+    demo_file_path = os.path.join(os.path.dirname(parent_path), os.path.join("data", "demo.csv"))
 
     with io.open(demo_file_path, 'r', encoding='utf8') as f:
         reader = csv.reader((x.replace(u"\uFEFF", u"") for x in f))
         # column_label = list(reader)[0]
         rows = list(reader)[1:]
-        print(list(zip(*rows)))
+        print(rows)
 
     return zip(*rows)
 
