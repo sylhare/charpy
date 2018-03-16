@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name                  ='charpy',
-      version               ='0.2.0',
+      version               ='0.3.0',
       description           ='Render chart from data',
       long_description      ='README.rst',
       classifiers           =[
