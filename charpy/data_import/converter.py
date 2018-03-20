@@ -1,11 +1,12 @@
+import os
+import pypandoc
+from charpy import ROOT_PATH
 
-def csv_to_json():
-    """
-    Convert a .csv file into a .json file and print it in the data directory
 
-    :return:
-    """
-    pass
+def readme_md_to_rst():
+    readme_md_path = os.path.join(ROOT_PATH, os.path.join("docs", "README.md"))
+    readme_rst_path = os.path.join(ROOT_PATH, "README.rst")
+    pypandoc.convert(readme_md_path, 'rst', outputfile=readme_rst_path)
 
 
 def csv_transpose(csv_list):
@@ -22,3 +23,7 @@ def csv_transpose(csv_list):
     transpose = zip(*csv_list)
 
     return list(transpose)
+
+
+if __name__ == "__main__":
+    readme_md_to_rst()

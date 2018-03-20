@@ -1,9 +1,10 @@
 from setuptools import setup, find_packages
+from charpy.data_import.io_import import get_readme_rst
 
 setup(name                  ='charpy',
-      version               ='0.3.0',
+      version               ='0.4.0',
       description           ='Render chart from data',
-      long_description      ='README.rst',
+      long_description      = get_readme_rst(),
       classifiers           =[
                               'Development Status :: 3 - Alpha',
                               'License :: OSI Approved :: MIT License',
@@ -17,4 +18,5 @@ setup(name                  ='charpy',
       packages              =find_packages(),
       include_package_data  =True,
       install_requires      =['flask>=0.12'],
-      zip_safe              =False)
+      zip_safe              =False
+      )
