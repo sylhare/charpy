@@ -4,10 +4,12 @@
 # Setuptools distribution folder.
 /dist/*
 /build/*
+/bin/dist/
 
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
 /*.egg
+/bin/charpy.egg-info/
 
 # IDE and OS files
 .idea/*

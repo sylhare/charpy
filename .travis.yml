@@ -28,7 +28,7 @@ install:
 
 # commands to run tests
 script:
-  - coverage run --source=charpy.app -m unittest
+  - coverage run --source=charpy -m unittest
   - coverage xml # For Codacy
 
 after_success:
