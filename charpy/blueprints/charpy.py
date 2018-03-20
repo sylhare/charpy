@@ -1,4 +1,4 @@
-from flask import url_for, Blueprint, render_template
+from flask import Blueprint, render_template
 
 bp = Blueprint('charpy', __name__, template_folder='templates')
 

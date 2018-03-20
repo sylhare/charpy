@@ -1,8 +1,8 @@
 Chart App
 =========
 
-|Build Status| |codecov| |Codacy Badge| |Maintainability| |Test
-Coverage|
+|PyPI version| |Build Status| |codecov| |Codacy Badge| |Maintainability|
+|Test Coverage|
 
 This is a web app designed to crunch data into charts.
 
@@ -16,6 +16,8 @@ You can have a demo available at
 
     python charpy/app.py
 
+.. |PyPI version| image:: https://badge.fury.io/py/charpy.svg
+   :target: https://badge.fury.io/py/charpy
 .. |Build Status| image:: https://travis-ci.org/Sylhare/charpy.svg?branch=master
    :target: https://travis-ci.org/Sylhare/charpy
 .. |codecov| image:: https://codecov.io/gh/Sylhare/charpy/branch/master/graph/badge.svg

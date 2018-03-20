@@ -1,21 +1,29 @@
 import os
 import io
 import csv
-from charpy.data_import.converter import csv_transpose
+from charpy.data_import.converter import csv_transpose, readme_md_to_rst, README_RST_PATH
 from charpy import ROOT_PATH
+
+
+def create_readme_rst():
+    """
+    create the readme rst
+    """
+    result = readme_md_to_rst()
+    with open(README_RST_PATH, 'w') as f:
+        f.write(result)
 
 
 def get_readme_rst():
     """
     Read the README.rst file and return a string with it content
-
     :return: README.rst in a string
     """
     readme_path = os.path.join(ROOT_PATH, "README.rst")
     with open(readme_path, 'r') as f:
-        readme = f.readlines()
+        readme = f.read()
 
-    return ''.join(readme)
+    return readme
 
 
 def get_csv_data(path):
@@ -40,11 +48,12 @@ def get_demo_data():
     :return: the transpose value of the demo file.
     """
     demo_file_path = os.path.join(ROOT_PATH, os.path.join("data", "demo.csv"))
-
     value = get_csv_data(demo_file_path)[1:]
 
     return csv_transpose(value)
 
 
-if __name__ == "__main__":
-    get_readme_rst()
+if __name__ == "__main__":  # pragma: no cover
+    create_readme_rst()
+    # print(get_readme_rst())
+    pass
