@@ -7,7 +7,7 @@ class TestIOImport(unittest.TestCase):
 
     def test_get_demo_data(self):
         """ Make sure we get the demo data from a csv file and transposed """
-        self.assertEquals(DEMO_DATA, get_demo_data())
+        self.assertEqual(DEMO_DATA, get_demo_data())
 
     def test_get_readme_rst(self):
         """ check if you can retrieve the rst file and that a file is not created """

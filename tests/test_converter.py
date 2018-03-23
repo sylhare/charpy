@@ -8,8 +8,8 @@ class TestConverter(unittest.TestCase):
 
     def test_csv_transpose(self):
         """ Make sure that transpose can transpose the csv and put it back how it was """
-        self.assertEquals(DEMO_DATA_TRANSPOSED, csv_transpose(DEMO_DATA))
-        self.assertEquals(DEMO_DATA, csv_transpose(DEMO_DATA_TRANSPOSED))
+        self.assertEqual(DEMO_DATA_TRANSPOSED, csv_transpose(DEMO_DATA))
+        self.assertEqual(DEMO_DATA, csv_transpose(DEMO_DATA_TRANSPOSED))
 
     def test_readme_md_to_rst_not_empty(self):
         """ check that readme to rst generate a file not empty """
