@@ -27,9 +27,13 @@ shift $((OPTIND - 1))
 pip show twine 1>/dev/null
 if [ $? != 0 ]; then
    pip install --upgrade twine
-else
-   echo "Installed" #Replace with your actions
 fi
+
+# Convert the readme md into rst
+# TODO
+
+# Deleting old distribution
+rm -r dist
 
 # Create the package tarball from the setup.py
 python ../setup.py sdist
