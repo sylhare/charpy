@@ -1,3 +1,6 @@
+import io
+import csv
+import json
 from charpy.data_import import README_RST_PATH, README_MD_PATH
 
 
@@ -5,7 +8,7 @@ def readme_md_to_rst():
     """Use pypandoc to create a .rst version of the .md README """
     try:
         import pypandoc
-        result = pypandoc.convert(README_MD_PATH, 'rst')
+        result = pypandoc.convert_file(README_MD_PATH, 'rst')
 
     except(IOError, ImportError):
         result = open(README_MD_PATH).read()
@@ -27,6 +30,10 @@ def csv_transpose(csv_list):
     transpose = zip(*csv_list)
 
     return list(transpose)
+
+
+def csv_semicolon_to_comma(path):
+    pass
 
 
 def csv_to_json(path): # pragma: no cover

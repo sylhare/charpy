@@ -2,7 +2,7 @@ import os
 import io
 import csv
 from charpy.data_import.converter import csv_transpose, readme_md_to_rst, README_RST_PATH
-from charpy import ROOT_PATH
+from charpy import DATA_PATH, ROOT_PATH
 
 
 def create_readme_rst():
@@ -26,19 +26,23 @@ def get_readme_rst():
     return readme
 
 
-def get_csv_data(path):
+def get_csv_data(path, transposed=False):
     """
     Return each row of the csv file
 
-    :param path:
+    :param transposed: if you want the csv data transposed or not
+    :param path: of the csv file to get data from
     :return:
     """
     with io.open(path, 'r', encoding='utf8') as f:
-        reader = csv.reader((x.replace(u"\uFEFF", u"") for x in f))
+        sniffer = csv.Sniffer()
+        dialect = sniffer.sniff(f.readline(), [',', ';'])
+        f.seek(0)
+        reader = csv.reader((x.replace(u"\uFEFF", u"") for x in f), dialect)
         # column_label = list(reader)[0]
         rows = list(reader)
 
-    return rows
+    return csv_transpose(rows) if transposed else rows
 
 
 def get_demo_data():
@@ -47,7 +51,7 @@ def get_demo_data():
 
     :return: the transpose value of the demo file.
     """
-    demo_file_path = os.path.join(ROOT_PATH, os.path.join("data", "demo.csv"))
+    demo_file_path = os.path.join(DATA_PATH, "demo.csv")
     value = get_csv_data(demo_file_path)[1:]
 
     return csv_transpose(value)
