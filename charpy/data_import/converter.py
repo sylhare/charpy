@@ -16,18 +16,19 @@ def readme_md_to_rst():
     return result
 
 
-def csv_transpose(csv_list):
+def transpose(csv_list):
     """
+    Transpose a list of rows into a list of columns
 
     example:
-    [('x', 3), ('y', 4), ('z', 5)]
+       [('x', 3), ('y', 4), ('z', 5)]
 
-    will become
-    [('x', 'y', 'z'), (3, 4, 5)]
+    will become:
+       [('x', 'y', 'z'), (3, 4, 5)]
 
     :return:
     """
-    transpose = zip(*csv_list)
+    transpose = map(list, zip(*csv_list))
 
     return list(transpose)
 

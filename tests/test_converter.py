@@ -1,15 +1,16 @@
 import unittest
 import os
 from charpy.data_import.converter import *
-from tests import DEMO_DATA, DEMO_DATA_TRANSPOSED
+from tests import TEST_DATA_COLUMN, TEST_DATA_ROW
 
 
 class TestConverter(unittest.TestCase):
 
     def test_csv_transpose(self):
         """ Make sure that transpose can transpose the csv and put it back how it was """
-        self.assertEqual(DEMO_DATA_TRANSPOSED, csv_transpose(DEMO_DATA))
-        self.assertEqual(DEMO_DATA, csv_transpose(DEMO_DATA_TRANSPOSED))
+        self.assertEqual(TEST_DATA_ROW, transpose(TEST_DATA_COLUMN))
+        self.assertEqual(TEST_DATA_COLUMN, transpose(TEST_DATA_ROW))
+
 
     def test_readme_md_to_rst_not_empty(self):
         """ check that readme to rst generate a file not empty """

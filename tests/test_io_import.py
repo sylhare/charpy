@@ -1,13 +1,13 @@
 import unittest
 from charpy.data_import.io_import import *
-from tests import DEMO_DATA
+from tests import TEST_DATA_COLUMN
 
 
 class TestIOImport(unittest.TestCase):
 
     def test_get_demo_data(self):
         """ Make sure we get the demo data from a csv file and transposed """
-        self.assertEqual(DEMO_DATA, get_demo_data())
+        self.assertEqual(TEST_DATA_COLUMN, get_demo_data())
 
     def test_get_readme_rst(self):
         """ check if you can retrieve the rst file and that a file is not created """

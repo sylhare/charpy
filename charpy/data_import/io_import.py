@@ -1,7 +1,8 @@
 import os
 import io
 import csv
-from charpy.data_import.converter import csv_transpose, readme_md_to_rst, README_RST_PATH
+from charpy.data_import.converter import transpose, readme_md_to_rst, README_RST_PATH
+from charpy.data_import.CSVfile import CSVfile
 from charpy import DATA_PATH, ROOT_PATH
 
 
@@ -26,23 +27,25 @@ def get_readme_rst():
     return readme
 
 
-def get_csv_data(path, transposed=False):
+def get_csv_data(path, transposed=False, encoding='utf8'):
     """
     Return each row of the csv file
 
+    :param encoding: encoding of the file
     :param transposed: if you want the csv data transposed or not
     :param path: of the csv file to get data from
     :return:
     """
-    with io.open(path, 'r', encoding='utf8') as f:
+    with io.open(path, 'r', encoding=encoding, newline='') as f:
         sniffer = csv.Sniffer()
         dialect = sniffer.sniff(f.readline(), [',', ';'])
         f.seek(0)
+        # reader = csv.reader(map(lambda x: x.replace(u"\uFEFF", u""), f), dialect)
         reader = csv.reader((x.replace(u"\uFEFF", u"") for x in f), dialect)
         # column_label = list(reader)[0]
         rows = list(reader)
 
-    return csv_transpose(rows) if transposed else rows
+    return transpose(rows) if transposed else rows
 
 
 def get_demo_data():
@@ -54,7 +57,7 @@ def get_demo_data():
     demo_file_path = os.path.join(DATA_PATH, "demo.csv")
     value = get_csv_data(demo_file_path)[1:]
 
-    return csv_transpose(value)
+    return transpose(value)
 
 
 if __name__ == "__main__":  # pragma: no cover
