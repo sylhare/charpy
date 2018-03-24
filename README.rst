@@ -4,7 +4,7 @@ Chart App
 |PyPI version| |Build Status| |codecov| |Codacy Badge| |Maintainability|
 |Test Coverage|
 
-This is a web app designed to crunch data into charts.
+This is a web app designed to crunch data into charts ... like excel ^^'
 
 Demo
 ----

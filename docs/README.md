@@ -7,7 +7,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/ad17a7f76d6421c83b61/maintainability)](https://codeclimate.com/github/Sylhare/charpy/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ad17a7f76d6421c83b61/test_coverage)](https://codeclimate.com/github/Sylhare/charpy/test_coverage)
 
-This is a web app designed to crunch data into charts.
+This is a web app designed to crunch data into charts ... like excel ^^'
 
 ## Demo
 
