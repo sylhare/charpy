@@ -18,3 +18,4 @@
 # Other
 /.cache/*
 .coverage
+.eggs/*

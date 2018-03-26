@@ -18,9 +18,10 @@ setup(name='charpy',
       packages=find_packages(exclude=['docs']),
       include_package_data=True,
       install_requires=['flask>=0.12'],
+      tests_require=['pytest==2.9.2'],
       extras_require={
           'dev': ['pypandoc', 'setuptools'],
-          'test': ['coverage==4.1', 'pytest==2.9.2']
+          'test': ['coverage==4.1']
       },
       zip_safe=False
       )
