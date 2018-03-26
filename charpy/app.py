@@ -32,5 +32,5 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     app.run(host='127.0.0.1', port=5001)

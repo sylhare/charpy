@@ -35,7 +35,7 @@ def register_blueprints(app):
     return None
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     app = create_app( debug=True)
     print(app.blueprints)
     app.run()

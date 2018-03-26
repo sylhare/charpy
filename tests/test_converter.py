@@ -11,7 +11,6 @@ class TestConverter(unittest.TestCase):
         self.assertEqual(TEST_DATA_ROW, transpose(TEST_DATA_COLUMN))
         self.assertEqual(TEST_DATA_COLUMN, transpose(TEST_DATA_ROW))
 
-
     def test_readme_md_to_rst_not_empty(self):
         """ check that readme to rst generate a file not empty """
         self.assertTrue(readme_md_to_rst(), True)
