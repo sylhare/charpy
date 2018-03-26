@@ -1,10 +1,12 @@
 import unittest
 from charpy.data_import.io_import import *
 from tests import TEST_DATA_COLUMN
+import pytest
 
 
 class TestIOImport(unittest.TestCase):
 
+    #@pytest.mark.skip(reason="no way of currently testing this")
     def test_get_demo_data(self):
         """ Make sure we get the demo data from a csv file and transposed """
         self.assertEqual(TEST_DATA_COLUMN, get_demo_data())

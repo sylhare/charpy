@@ -6,6 +6,8 @@ class CSVfile:
     """
     CSVfile class to handle operation on an open csv file
     """
+    ROW = "ROW"
+    COLUMN = "COLUMN"
 
     def __init__(self, file, delimiter=None, has_header=None):
         """
@@ -51,7 +53,7 @@ class CSVfile:
         :return:
         """
         self.check_delimiter()
-        reader = csv.reader((x.replace(u"\uFEFF", u"") for x in self.f), self.delimiter)
+        reader = csv.reader(self.f, self.delimiter)
         return reader
 
     def extract_csv_data(self):
@@ -72,3 +74,12 @@ class CSVfile:
             self.data_rows = raw_csv
 
         self.data_columns = transpose(self.data_rows)
+
+    def get_values(self, data_format=COLUMN):
+        """ Get the data from the csv file """
+        if data_format == self.ROW:
+            return self.data_rows
+        else:
+            return self.data_columns
+
+
