@@ -30,7 +30,8 @@ install:
 script:
   - coverage run --source=charpy -m unittest
   - coverage xml # For Codacy
-  - pytest
+  - python -m pytest
+  - python setup.py test
 
 after_success:
   - pip install charpy

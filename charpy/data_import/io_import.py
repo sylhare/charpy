@@ -35,7 +35,7 @@ def get_csv_data(path, data_format=CSVfile.COLUMN, encoding='utf8'):
     :param path: of the csv file to get data from
     :return:
     """
-    with io.open(path, 'rU', encoding='utf-8', newline='') as f:
+    with io.open(path, 'r', encoding='utf-8', newline='') as f:
         csvfile = CSVfile(f)
     """    sniffer = csv.Sniffer()
         dialect = sniffer.sniff(f.readline(), [',', ';'])
