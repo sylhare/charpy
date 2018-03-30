@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Start the script using:
+#    bash bin/deploy.sh
 # Intended for the deployment of a python 3 package
 usage="$(basename "$0") [-h] [-u s] -- to tar and upload python package
 
@@ -36,7 +38,7 @@ fi
 rm -r dist
 
 # Create the package tarball from the setup.py
-python ../setup.py sdist
+python setup.py sdist
 
 # Deploy the package in the dist folder
 # twine upload -u $USER -p $PASSWORD --repository-url $URL dist/*
