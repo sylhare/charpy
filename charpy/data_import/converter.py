@@ -1,7 +1,5 @@
-import io
-import csv
-import json
-from charpy.data_import import README_RST_PATH, README_MD_PATH
+import dateutil
+from charpy.data_import import README_MD_PATH
 
 
 def readme_md_to_rst():
@@ -37,6 +35,31 @@ def transpose(csv_list):
     return list(transposed)
 
 
+def string_to_date(string):
+    """
+    The date returned is a datetime.datetime object
+    No need to specify the format.
+    date.year gives the year
+    date.month gives the month
+    date.day gives the day
+
+    :param string:
+    :return: the date
+    """
+    return dateutil.parser.parse(string)
+
+
+def string_to_float(string):
+    """
+    return a float from a string
+
+    :param string:
+    :return: float
+    """
+    return float(string)
+
+
 if __name__ == "__main__":  # pragma: no cover
-    print(readme_md_to_rst())
+    #print(readme_md_to_rst())
+    string_to_date("29/10/2018")
     pass
