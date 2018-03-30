@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Line Chart</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+<div style="width:75%;">
+    <canvas id="canvas"></canvas>
+</div>
+<script>
+
+
+  function newDate(days) {
+		return moment().add(days, 'd').toDate();
+	}
+
+  var config = {
+    type: 'bar',
+    data: {
+      labels: [newDate(-5), newDate(-4), newDate(-3), newDate(-2), newDate(-1), newDate(0)],
+      datasets: [{
+        data: [2, 5, 3, 4, 7, 3],
+        borderColor: "rgba(220,20,20,1)",
+        backgroundColor: "rgba(220,20,20,0.5)"
+      }]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          type: "time",
+          time: {
+            unit: 'day',
+            round: 'day',
+            displayFormats: {
+              day: 'MMM D'
+            }
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  }
+
+  var ctx = document.getElementById("canvas").getContext("2d");
+	window.myLine = new Chart(ctx, config);
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
