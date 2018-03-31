@@ -33,9 +33,19 @@ class CSVfileDataTest(object):
 class CSVFileTestHeader(CSVfileDataTest, unittest.TestCase):
     FILE_DATA = TEST_DATA
 
+    def test_get_header(self):
+        """ Make sur the header is populated """
+        csv_file = CSVfile(self.file)
+        self.assertTrue(csv_file.data_header == TEST_DATA[0])
+
 
 class CSVFileTestNoHeader(CSVfileDataTest, unittest.TestCase):
     FILE_DATA = TEST_DATA_ROW
+
+    def test_no_header_found(self):
+        """ Make sur the header is populated """
+        csv_file = CSVfile(self.file)
+        self.assertFalse(csv_file.has_header)
 
 
 if __name__ == "__main__":
