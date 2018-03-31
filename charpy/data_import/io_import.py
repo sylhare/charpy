@@ -1,6 +1,7 @@
 import os
 import io
-from charpy.data_import.converter import readme_md_to_rst, README_RST_PATH
+from charpy.data_import import README_RST_PATH
+from charpy.data_import.converter import readme_md_to_rst
 from charpy.data_import.CSVfile import CSVfile
 from charpy import DATA_PATH, ROOT_PATH
 
@@ -35,18 +36,10 @@ def get_csv_data(path, data_format=CSVfile.COLUMN, encoding='utf8'):
     :param path: of the csv file to get data from
     :return:
     """
-    with io.open(path, 'r', encoding='utf-8', newline='') as f:
-        csvfile = CSVfile(f)
-    """    sniffer = csv.Sniffer()
-        dialect = sniffer.sniff(f.readline(), [',', ';'])
-        f.seek(0)
-        # reader = csv.reader(map(lambda x: x.replace(u"\uFEFF", u""), f), dialect)
-        reader = csv.reader((x.replace(u"\uFEFF", u"") for x in f), dialect)
-        # column_label = list(reader)[0]
-        rows = list(reader)
+    with io.open(path, 'r', encoding=encoding, newline='') as f:
+        file = CSVfile(f)
 
-    return transpose(rows) if transposed else rows"""
-    return csvfile.get_values(data_format)
+    return file.get_values(data_format)
 
 
 def get_demo_data():
