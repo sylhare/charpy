@@ -1,4 +1,4 @@
-import dateutil
+from dateutil.parser import parse
 from charpy.data_import import README_MD_PATH
 
 
@@ -38,15 +38,18 @@ def transpose(csv_list):
 def string_to_date(string):
     """
     The date returned is a datetime.datetime object
-    No need to specify the format.
+
+    No need to specify the format:
     date.year gives the year
     date.month gives the month
     date.day gives the day
 
+    the '.date()' remove the hours.
+
     :param string:
     :return: the date
     """
-    return dateutil.parser.parse(string)
+    return parse(string).date()
 
 
 def string_to_float(string):
@@ -60,6 +63,6 @@ def string_to_float(string):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    #print(readme_md_to_rst())
+    # print(readme_md_to_rst())
     string_to_date("29/10/2018")
     pass
