@@ -6,15 +6,12 @@ Use export FLASK_APP="charpy.factory:create_app()"
 """
 from flask import Flask
 from werkzeug.utils import find_modules, import_string
-from charpy.blueprints.simple_page import simple_page
 
 
 def create_app(debug=False):
     app = Flask(__name__)
     app.debug = debug
 
-    # add your modules
-    # app.register_blueprint(simple_page)
     register_blueprints(app)
 
     return app
