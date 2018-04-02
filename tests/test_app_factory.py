@@ -15,6 +15,7 @@ class TestAppFactory(unittest.TestCase):
     def test_404_not_found(self):
         """inital test. ensure flask was set up correctly"""
         response = self.client.get('/404', content_type='html/text')
+        self.assertTrue(b'WAS NOT FOUND' in response.data)
         self.assertEqual(response.status_code, 404)
 
 

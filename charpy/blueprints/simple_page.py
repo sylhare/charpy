@@ -15,6 +15,6 @@ def show(page):
         abort(404)
 
 
-@simple_page.errorhandler(404)
+@simple_page.app_errorhandler(404)  # 404 for the whole app
 def page_not_found(e):
-    return render_template('404.html')
+    return render_template('404.html'), 404  # render the template and return 404

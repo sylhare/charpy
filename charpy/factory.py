@@ -14,8 +14,8 @@ def create_app(debug=False):
     app.debug = debug
 
     # add your modules
-    # app.register_blueprint(simple_page)
-    register_blueprints(app)
+    app.register_blueprint(simple_page)
+    #register_blueprints(app)
 
     return app
 
@@ -36,6 +36,6 @@ def register_blueprints(app):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    app = create_app( debug=True)
+    app = create_app(debug=True)
     print(app.blueprints)
     app.run()
