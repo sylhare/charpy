@@ -19,6 +19,7 @@ def chart_demo():
 @app.route("/chart")
 def chart_file():
     labels, values, colors = get_demo_data()
+
     return render_template('chart.html', values=values, labels=labels, set=zip(values, labels, colors))
 
 
@@ -27,10 +28,6 @@ def hello(name):
     return "hello " + name + "!"
 
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-
-
 if __name__ == "__main__":  # pragma: no cover
+    print(get_demo_data())
     app.run(host='127.0.0.1', port=5001)
