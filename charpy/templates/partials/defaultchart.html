@@ -1,0 +1,84 @@
+<canvas id="chart" width="600" height="400"></canvas>
+
+<script>
+
+        const ctx = document.getElementById('chart').getContext('2d');
+
+        const type = '{{ type }}';
+
+        const dataXY = [
+                        { x: '', y: '' },
+                        { x: '', y: '' }
+                     ]
+
+        const data = {
+                labels: [
+                    {% for item in labels %}
+                        "{{item}}",
+                    {% endfor %}
+                ],
+
+                datasets: [{
+                    label: 'dataset legend',
+                    data: [
+                        {% for item in values %}
+                            {{item}},
+                        {% endfor %}
+                    ],
+                    //backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                    //backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                    //borderColor: 'rgba(0, 99, 132, 1)',
+                }]
+            };
+
+        const options = {
+            title: {
+              display: true,
+              text: 'title of the graph'
+            },
+            legend: {
+              display: true,
+              position: "right",
+              labels: {
+                fontColor: "#333",
+                fontSize: 16
+              }
+            },
+            scales: {
+                xAxes: [{
+                    display: false,
+                    gridLines: {
+                        display: false,
+                        color: "black"
+                    },
+                    scaleLabel: {
+                        display: false,
+                        labelString: "X label",
+                        fontColor: "gray"
+                    }
+                }],
+                yAxes:[{
+                    display: false,
+                    gridLines: {
+                        display: false,
+                        color: "black",
+                        borderDash: [2, 5],
+                      },
+                     scaleLabel: {
+                        display: false,
+                        labelString: "Y label",
+                        fontColor: "gray"
+                     }
+                }]
+            }
+        }
+
+        const config = {
+            type: type,
+            data: data,
+            options: options
+        };
+
+        const chart = new Chart(ctx, config);
+
+</script>
