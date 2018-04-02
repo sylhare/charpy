@@ -43,7 +43,7 @@ class CSVfile:
         :return:
         """
         if self.has_header is None:
-            self.has_header = self.sniffer.has_header(self.f.read(2048).encode('utf-8'))
+            self.has_header = self.sniffer.has_header(self.f.read(2048))
             self.f.seek(0)
 
     def __read(self):
