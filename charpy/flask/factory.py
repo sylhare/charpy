@@ -23,7 +23,7 @@ def register_blueprints(app):
     Check the argument 'bp' in all the modules in the folder inserted in findmodules
     then register all blueprints in the app
     """
-    for name in find_modules('charpy.blueprints', recursive=True):
+    for name in find_modules('charpy.flask.blueprints', recursive=True):
         mod = import_string(name)
 
         if hasattr(mod, 'bp'):
