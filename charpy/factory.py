@@ -28,7 +28,7 @@ def register_blueprints(app):
     """
     for name in find_modules('charpy.blueprints', recursive=True):
         mod = import_string(name)
-        #print(mod)
+
         if hasattr(mod, 'bp'):
            # print(mod.bp)
             app.register_blueprint(mod.bp)

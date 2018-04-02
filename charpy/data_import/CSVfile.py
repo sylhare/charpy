@@ -1,5 +1,5 @@
 import csv
-from charpy.data_import.converter import transpose
+from charpy.data_import.converter import transpose, string_to_date, string_to_float
 
 
 class CSVfile:
@@ -24,9 +24,9 @@ class CSVfile:
         self.data_header = None
         self.data_rows = []
         self.data_columns = []
-        self.extract_csv_data()
+        self.__extract_csv_data()
 
-    def check_delimiter(self):
+    def __check_delimiter(self):
         """
         Check if delimiter ',' or ';'
 
@@ -36,27 +36,28 @@ class CSVfile:
             self.delimiter = self.sniffer.sniff(self.f.readline(), [',', ';'])
             self.f.seek(0)
 
-    def check_header(self):
+    def __check_header(self):
         """
         If not specified, will check if there is a header in the data, otherwise take the given data
 
         :return:
         """
         if self.has_header is None:
-            self.has_header = self.sniffer.has_header(self.f.read(2048))
+            self.has_header = self.sniffer.has_header(self.f.read(2048).encode('utf-8'))
             self.f.seek(0)
 
-    def read(self):
+    def __read(self):
         """
         Read the file and return a csv object
 
         :return:
         """
-        self.check_delimiter()
+        self.__check_delimiter()
         reader = csv.reader(self.f, self.delimiter)
+        print(reader)
         return reader
 
-    def extract_csv_data(self):
+    def __extract_csv_data(self):
         """
         Extract the data from the csv file
         If it has a header the value goes to header and the rest to data,
@@ -64,8 +65,8 @@ class CSVfile:
 
         :return: a list of rows
         """
-        self.check_header()
-        raw_csv = list(self.read())
+        self.__check_header()
+        raw_csv = list(self.__read())
 
         if self.has_header:
             self.data_header = raw_csv[0]
@@ -82,4 +83,13 @@ class CSVfile:
         else:
             return self.data_columns
 
+    def column_date_format(self, column_number, formatting='%d/%m/%Y'):
+        """
+        Convert the column string values to another format
+
+        :param formatting: date format
+        :param column_number: from 0 to x, which the formatting will be applied to
+        """
+        pass
+        #map(lambda x: string_to_date(x).strftime(formatting), self.data_columns[column_number])
 
