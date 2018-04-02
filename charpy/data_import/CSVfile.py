@@ -66,7 +66,7 @@ class CSVfile:
         :return: a list of rows
         """
         self.__check_header()
-        raw_csv = list(self.__read())  #TODO do not handle if unicode (from ascii to utf-8)
+        raw_csv = list(self.__read())  #TODO problem when not utf-8
 
         if self.has_header:
             self.data_header = raw_csv[0]
