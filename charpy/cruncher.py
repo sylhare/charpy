@@ -12,23 +12,43 @@ class Orc(object):
     Clean it accordingly
     """
     DEFAULT_NAMES = ['date', 'label', 'value']
+    DEFAULT_SUB_NAMES = ['article', 'city', 'province']
 
     def __init__(self, path, sep=None, header=None, names=DEFAULT_NAMES):
         """
 
-        :type names: object
+        :param path: Where the file(s) are to be opened
+        :param sep: if not specified will be found automatically
+        :param header: is
+            - 'None' there are no header default header are taken
+            - An int, then the row[ int ] will be the header and can't be renamed using name
+        :param names: names of the columns
         """
-        criteria = {'sep': sep}
+        criteria = {'sep': sep, 'header': header}
 
         if sep is None:
             criteria['engine'] = 'python'
         if header is None:
-            criteria['header'] = None
             criteria['names'] = names
-        else:
-            criteria['header'] = header
 
         self.df = pd.read_csv(path, **criteria)
+
+    def __check_path(self, path, criteria):
+        """ Check if the path is a directory or a file """
+        if not os.path.isdir(path):
+            self.read_csv(path, criteria)
+        else:
+            for file in os.listdir(path):
+                # TODO Read file
+                pass
+
+    def read_csv(self, path, criteria):
+        """ try to open the csv file """
+        if path.endswith('.csv'):
+            self.df = pd.read_csv(path, **criteria)
+        else:
+            raise FileExistsError("The file should be a .csv")
+
 
     # TODO check the formatting is a correct time formatting
     def format_column_date(self, column, formatting="%d/%m/%Y", dayfirst=True):
@@ -37,26 +57,52 @@ class Orc(object):
 
         :param dayfirst: True for the parsing method
         :param formatting:
-        :param column:
+        :param column: column to apply
         :return:
         """
         c = self.__check_column(column)
         if c:
-
             self.df[c] = list(map(lambda x: parse(x, dayfirst=dayfirst).date().strftime(formatting), self.df[c]))
 
     def format_column_list(self, column, regex=r'  +'):
         """
+        Format the column into a list using regex
 
-        :param c: column to apply
+        :param column: column to apply
         :param regex: by default more than two spaces
         :return:
         """
 
         c = self.__check_column(column)
         if c:
-
             self.df[c] = list(map(lambda x: re.split(regex, x), self.df[c]))
+
+    def create_columns_from_list_column(self, column, names=DEFAULT_SUB_NAMES):
+        """
+        Take a column that has list values and create columns for it
+
+        Add a buffer to the list in case there are not enough elements to create the column
+        It will add '' instead
+
+        :return:
+        """
+
+        c = self.__check_column(column)
+        if c:
+            buffer = ['' for i in names]
+
+            try:
+                for r in range(len(self.df[c])):
+                    if type(self.df.at[r, c]) == list:
+                        self.df.at[r, c].extend(buffer)
+                    else:
+                        raise TypeError('Error: The column needs to only contain list objects')
+
+                for i in range(len(names)):
+                    self.df[names[i]] = map(lambda x: x[i], self.df[c])
+
+            except TypeError as error:
+                    print(error)
 
     def __check_column(self, column):
         """
@@ -65,10 +111,13 @@ class Orc(object):
         :param column:
         :return: the column name
         """
-
         try:
             if int == type(column):
-                c_name = self.df.columns[column]
+                if column >= 0:
+                    c_name = self.df.columns[column]
+                else:
+                    raise TypeError("Error: column should be a positive number")
+
             elif column in self.df:
                 c_name = column
             else:
@@ -82,9 +131,11 @@ class Orc(object):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    s = Orc(os.path.join(DATA_PATH, "pcbanking.csv"))
+    s = Orc(os.path.join(DATA_PATH, 'pcbanking.csv'))
+    print(os.path.isdir(os.path.join(DATA_PATH, 'pcbanking.csv')))
+    print(os.listdir(DATA_PATH))
+    s.format_column_date('date')
+    s.format_column_list('label')
+    s.create_columns_from_list_column('label')
     print(s.df)
-    s.format_column_date("date")
-    print(s.df)
-    for value in s.df['label']:
-        print(re.split(r'  +', value))
+
