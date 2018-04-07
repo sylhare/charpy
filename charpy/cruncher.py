@@ -2,7 +2,29 @@ import os
 import pandas as pd
 import re
 from dateutil.parser import parse
-from charpy import DATA_PATH
+
+
+def check_path(path):
+    """ Check if the path is a directory or a file and return a list of the file in the path """
+
+    list_path = []
+
+    try:
+        if os.path.isdir(path):
+            list_path = list(map(lambda x: os.path.join(path, x), os.listdir(path)))
+        else:
+            list_path.append(path)
+
+        if len(list_path) == 0:
+            raise FileError("Can't find the file from the path: '{}'".format(path))
+
+    except TypeError as error:
+        print("Error: Input path not valid - path: '{}' - error: {}".format(path, error))
+
+    except FileError as error:
+        print(error)
+
+    return list_path
 
 
 class Orc(object):
@@ -31,24 +53,19 @@ class Orc(object):
         if header is None:
             criteria['names'] = names
 
-        self.df = pd.read_csv(path, **criteria)
-
-    def __check_path(self, path, criteria):
-        """ Check if the path is a directory or a file """
-        if not os.path.isdir(path):
-            self.read_csv(path, criteria)
-        else:
-            for file in os.listdir(path):
-                # TODO Read file
-                pass
+        self.df = pd.DataFrame()
+        self.read_csv(path, criteria)
 
     def read_csv(self, path, criteria):
-        """ try to open the csv file """
-        if path.endswith('.csv'):
-            self.df = pd.read_csv(path, **criteria)
-        else:
-            raise FileExistsError("The file should be a .csv")
-
+        """ Check if the path is a directory or a file """
+        for file in check_path(path):
+            try:
+                if file.endswith('.csv'):
+                    self.df = self.df.append(pd.read_csv(file, **criteria), ignore_index=True)
+                else:
+                    raise FileError("The file should be a .csv -  '{}'".format(file))
+            except FileError as error:
+                print(error)
 
     # TODO check the formatting is a correct time formatting
     def format_column_date(self, column, formatting="%d/%m/%Y", dayfirst=True):
@@ -102,7 +119,7 @@ class Orc(object):
                     self.df[names[i]] = map(lambda x: x[i], self.df[c])
 
             except TypeError as error:
-                    print(error)
+                print(error)
 
     def __check_column(self, column):
         """
@@ -130,12 +147,15 @@ class Orc(object):
         return c_name
 
 
-if __name__ == "__main__":  # pragma: no cover
-    s = Orc(os.path.join(DATA_PATH, 'pcbanking.csv'))
-    print(os.path.isdir(os.path.join(DATA_PATH, 'pcbanking.csv')))
-    print(os.listdir(DATA_PATH))
-    s.format_column_date('date')
-    s.format_column_list('label')
-    s.create_columns_from_list_column('label')
-    print(s.df)
+class FileError(Exception):
+    pass
 
+
+if __name__ == "__main__":  # pragma: no cover
+    from charpy import DATA_PATH
+    s = Orc(os.path.join(DATA_PATH, 'empty'))
+    # print(os.listdir(DATA_PATH))
+    # s.format_column_date('date')
+    # s.format_column_list('label')
+    # s.create_columns_from_list_column('label')
+    print(s.df)

@@ -1,7 +1,7 @@
 import os
 import unittest
 from charpy import DATA_PATH
-from charpy.cruncher import Orc
+from charpy.cruncher import Orc, FileError, check_path
 from tests import *
 
 
@@ -18,6 +18,15 @@ class TestConverter(unittest.TestCase):
         semicolon = self.semicolon.df.columns.tolist()
         self.assertEqual(semicolon, comma)
         self.assertEqual(preset, comma)
+
+    def test_x01_is_wrong_path_typeError(self):
+        print('\n\nWrong path input raise exception')
+        self.assertRaises(TypeError, check_path(2))
+
+    @unittest.expectedFailure
+    def test_x02_is_wrong_path_fileError(self):
+        with self.assertRaises(FileError):
+            check_path([])
 
     def test_x10_wrong_column(self):
         """ Raise an error is a wrong column identifier is put """
