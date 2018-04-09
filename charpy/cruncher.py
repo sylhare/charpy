@@ -6,7 +6,6 @@ from dateutil.parser import parse
 
 def check_path(path):
     """ Check if the path is a directory or a file and return a list of the file in the path """
-
     list_path = []
 
     try:
@@ -15,14 +14,8 @@ def check_path(path):
         else:
             list_path.append(path)
 
-        if len(list_path) == 0:
-            raise FileError("Can't find the file from the path: '{}'".format(path))
-
     except TypeError as error:
         print("Error: Input path not valid - path: '{}' - error: {}".format(path, error))
-
-    except FileError as error:
-        print(error)
 
     return list_path
 
@@ -57,15 +50,10 @@ class Orc(object):
         self.read_csv(path, criteria)
 
     def read_csv(self, path, criteria):
-        """ Check if the path is a directory or a file """
+        """ Read all of the csv file in the path and add them to the dataframe """
         for file in check_path(path):
-            try:
-                if file.endswith('.csv'):
-                    self.df = self.df.append(pd.read_csv(file, **criteria), ignore_index=True)
-                else:
-                    raise FileError("The file should be a .csv -  '{}'".format(file))
-            except FileError as error:
-                print(error)
+            if file.endswith('.csv'):
+                self.df = self.df.append(pd.read_csv(file, **criteria), ignore_index=True)
 
     # TODO check the formatting is a correct time formatting
     def format_column_date(self, column, formatting="%d/%m/%Y", dayfirst=True):
@@ -147,12 +135,9 @@ class Orc(object):
         return c_name
 
 
-class FileError(Exception):
-    pass
-
-
 if __name__ == "__main__":  # pragma: no cover
-    from charpy import DATA_PATH
+    from charpy import DATA_PATH, ROOT_PATH
+    Orc(ROOT_PATH)
     s = Orc(os.path.join(DATA_PATH, 'empty'))
     # print(os.listdir(DATA_PATH))
     # s.format_column_date('date')

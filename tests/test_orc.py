@@ -1,7 +1,7 @@
 import os
 import unittest
 from charpy import DATA_PATH
-from charpy.cruncher import Orc, FileError, check_path
+from charpy.cruncher import Orc, check_path
 from tests import *
 
 
@@ -19,20 +19,27 @@ class TestConverter(unittest.TestCase):
         self.assertEqual(semicolon, comma)
         self.assertEqual(preset, comma)
 
-    def test_x01_is_wrong_path_typeError(self):
-        print('\n\nWrong path input raise exception')
-        self.assertRaises(TypeError, check_path(2))
+    def test_001_is_default_header(self):
+        """ When no header parameters, the default one is taken """
+        comma = Orc(os.path.join(DATA_PATH, "demo.csv")).df
+        self.assertFalse(comma.columns.values.all() == self.file.df.columns.values.all())
+        self.assertTrue(list(comma) == Orc.DEFAULT_NAMES)
 
-    @unittest.expectedFailure
-    def test_x02_is_wrong_path_fileError(self):
-        with self.assertRaises(FileError):
-            check_path([])
+    def test_002_open_from_directory(self):
+        """ Path can be a directory """
+        self.file = Orc(os.path.join(DATA_PATH))
+        self.assertTrue(self.file.df.shape[0] == 33)
 
     def test_x10_wrong_column(self):
         """ Raise an error is a wrong column identifier is put """
         print('\n\nWrong column input raise exception')
         self.assertRaises(TypeError, self.file.format_column_date(-1))
         self.assertRaises(TypeError, self.file.format_column_date('test'))
+
+    def test_x11_is_wrong_path_typeError(self):
+        """ Wrong path type give typeError """
+        print('\n\nWrong path input raise exception')
+        self.assertRaises(TypeError, check_path(2))
 
     def test_020_is_date_formatted_default(self):
         """ The date should be formatted in month """
@@ -67,6 +74,7 @@ class TestConverter(unittest.TestCase):
 
     def test_x33_wrong_not_list_column(self):
         """ Raise an error when the column has no list object for creation """
+        print('\n\nWrong not list column raise exception')
         self.assertRaises(TypeError, self.file.create_columns_from_list_column(2, names=['hashtag', 'hexa']))
 
 
