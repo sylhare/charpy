@@ -4,7 +4,8 @@ Chart App
 |PyPI version| |Build Status| |codecov| |Codacy Badge| |Maintainability|
 |Test Coverage|
 
-This is a web app designed to crunch data into charts ... like excel ^^'
+This is a web app designed to crunch data into charts. The interesting
+part is where the data is crunched.
 
 Demo
 ----
@@ -15,6 +16,23 @@ You can have a demo available at
 .. code:: bash
 
     python charpy/app.py
+
+Dependencies
+------------
+
+Used for this project:
+
+Python
+~~~~~~
+
+-  Flask - base of the microservice
+-  Pandas - for the dataframe object and data manipulation
+-  dateutils - for the date and time parser
+
+Javascript
+~~~~~~~~~~
+
+-  Chart.js - for displaying the charts
 
 .. |PyPI version| image:: https://badge.fury.io/py/charpy.svg
    :target: https://badge.fury.io/py/charpy
