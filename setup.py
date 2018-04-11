@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-from charpy.data_import.io_import import get_readme_rst
+from charpy.utils import get_readme_rst
 
 setup(name='charpy',
       version='0.5.3',

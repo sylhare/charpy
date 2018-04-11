@@ -34,14 +34,14 @@ fi
 # Convert the readme md into rst
 # TODO
 
-# Deleting old distribution
-rm -r dist
-
 # Create the package tarball from the setup.py
 python setup.py sdist
 
 # Deploy the package in the dist folder
 # twine upload -u $USER -p $PASSWORD --repository-url $URL dist/*
 python -m twine upload -u $USER dist/*
+
+# Deleting dist file
+rm -r dist
 
 exit 0;
