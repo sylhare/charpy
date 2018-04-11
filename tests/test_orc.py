@@ -1,5 +1,6 @@
 import os
 import unittest
+import datetime
 from charpy import DATA_PATH
 from charpy.cruncher import Orc, check_path
 from tests import *
@@ -30,16 +31,15 @@ class TestConverter(unittest.TestCase):
         self.file = Orc(os.path.join(DATA_PATH))
         self.assertTrue(self.file.df.shape[0] == 33)
 
-    def test_x10_wrong_column(self):
-        """ Raise an error is a wrong column identifier is put """
-        print('\n\nWrong column input raise exception')
-        self.assertRaises(TypeError, self.file.format_column_date(-1))
-        self.assertRaises(TypeError, self.file.format_column_date('test'))
+    def test_003_get_colum_values_as_list(self):
+        """ Make sure we get the column values from a csv file """
+        self.assertEqual(TEST_DATA_COLUMN, self.file.get_column_values())
 
-    def test_x11_is_wrong_path_typeError(self):
+    def test_x10_is_wrong_path_typeError(self):
         """ Wrong path type give typeError """
         print('\n\nWrong path input raise exception')
         self.assertRaises(TypeError, check_path(2))
+        self.assertRaises(TypeError, check_path([]))
 
     def test_020_is_date_formatted_default(self):
         """ The date should be formatted in month """
@@ -53,6 +53,24 @@ class TestConverter(unittest.TestCase):
         self.file.format_column_date(0, formatting='%B')
         self.assertEqual(self.file.df['Month'].tolist(), TEST_DATA_COLUMN[0])
 
+    def test_022_is_new_date_column_created_day(self):
+        """ Test if the new date column is created using the right format """
+        self.file.create_from_date_column(formatting="day", input_date_column=0, output_column_name="date-day")
+        self.assertTrue(self.file.df["date-day"].str.contains('day').all())
+        self.assertTrue(len(self.file.df.columns) == 4)
+
+    def test_023_is_new_date_column_created_month(self):
+        """ Test if the new date column is created using the right format """
+        self.file.create_from_date_column(formatting="month", input_date_column=0, output_column_name="date-month")
+        self.assertTrue(list(self.file.df["date-month"]), TEST_DATA_COLUMN[0])
+        self.assertTrue(len(self.file.df.columns) == 4)
+
+    def test_024_is_new_date_column_created_year(self):
+        """ Test if the new date column is created using the right format """
+        self.file.create_from_date_column(formatting="year", input_date_column=0, output_column_name="date-year")
+        self.assertTrue(self.file.df["date-year"].str.contains(str(datetime.date.today().year)).all())
+        self.assertTrue(len(self.file.df.columns) == 4)
+
     def test_030_is_list_formatted(self):
         """ test column if formatted to list """
         self.file.format_column_list(2, regex=r'#')
@@ -63,19 +81,25 @@ class TestConverter(unittest.TestCase):
         """ Make sure columns are created """
         self.file.format_column_list(2, regex=r'#')
         self.assertTrue(len(self.file.df.columns) == 3)
-        self.file.create_columns_from_list_column(2, names=['hashtag', 'hexa'])
+        self.file.create_from_list_column(2, names=['hashtag', 'hexa'])
         self.assertTrue(len(self.file.df.columns) == 5)
 
     def test_032_are_more_column_created(self):
         """ Make sure the right amount of column is created eventhough there's not enough data """
         self.file.format_column_list(2, regex=r'#')
-        self.file.create_columns_from_list_column(2, names=['hashtag', 'hexa', 'stuff'])
+        self.file.create_from_list_column(2, names=['hashtag', 'hexa', 'stuff'])
         self.assertTrue(len(self.file.df.columns) == 6)
 
-    def test_x33_wrong_not_list_column(self):
+    def test_x40_wrong_column(self):
+        """ Raise an error is a wrong column identifier is put """
+        print('\n\nWrong column input raise exception')
+        self.assertRaises(TypeError, self.file.format_column_date(-1))
+        self.assertRaises(ValueError, self.file.format_column_date('test'))
+
+    def test_x41_wrong_not_list_column(self):
         """ Raise an error when the column has no list object for creation """
         print('\n\nWrong not list column raise exception')
-        self.assertRaises(TypeError, self.file.create_columns_from_list_column(2, names=['hashtag', 'hexa']))
+        self.assertRaises(TypeError, self.file.create_from_list_column(2, names=['hashtag', 'hexa']))
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from charpy.data_import.io_import import get_readme_rst
 
 setup(name='charpy',
-      version='0.5.2',
+      version='0.5.3',
       description='Render chart from data',
       long_description=get_readme_rst(),
       classifiers=[
@@ -11,7 +11,7 @@ setup(name='charpy',
           'Programming Language :: Python :: 3.6',
       ],
       keywords='flask chart.js web app chart charpy',
-      url='http://github.com/sylhare/chartapp',
+      url='http://github.com/sylhare/charpy',
       author='sylhare',
       author_email='sylhare@outlook.com',
       license='MIT',
