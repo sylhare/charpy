@@ -1,17 +1,16 @@
 import unittest
-from charpy.cruncher import Orc
-from charpy.data_import.io_import import *
-from tests import TEST_DATA_COLUMN
+from charpy.utils import *
 
 
+class TestConverter(unittest.TestCase):
 
+    def test_readme_md_to_rst_not_empty(self):
+        """ check that readme to rst generate a file not empty """
+        self.assertTrue(readme_md_to_rst(), True)
 
-class TestIOImport(unittest.TestCase):
-
-    #@pytest.mark.skip(reason="no way of currently testing this")
-    def test_get_demo_data(self):
-        """ Make sure we get the demo data from a csv file and transposed """
-        #self.assertEqual(TEST_DATA_COLUMN, )
+    def test_readme_md_converted_to_rst(self):
+        """ If it is really converted the first character should not be a # """
+        self.assertFalse(readme_md_to_rst()[1:] == "#")
 
     def test_get_readme_rst(self):
         """ check if you can retrieve the rst file and that a file is not created """

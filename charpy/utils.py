@@ -1,7 +1,22 @@
 import os
-from charpy.data_import import README_RST_PATH
-from charpy.data_import.converter import readme_md_to_rst
-from charpy import DATA_PATH, ROOT_PATH
+from charpy import README_RST_PATH, README_MD_PATH
+from charpy import ROOT_PATH
+
+
+def readme_md_to_rst():
+    """
+    Use pypandoc to create a .rst version of the .md README
+
+    :return: a string with the rst
+    """
+    try:
+        import pypandoc
+        result = pypandoc.convert_file(README_MD_PATH, 'rst')
+
+    except(IOError, ImportError):
+        result = open(README_MD_PATH).read()
+
+    return result
 
 
 def create_readme_rst():
@@ -28,4 +43,3 @@ def get_readme_rst():
 if __name__ == "__main__":  # pragma: no cover
     create_readme_rst()
     # print(get_readme_rst())
-    pass
