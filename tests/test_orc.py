@@ -12,34 +12,41 @@ class TestConverter(unittest.TestCase):
         self.file = Orc(os.path.join(DATA_PATH, "demo.csv"), sep=',', header=0)
         self.semicolon = Orc(os.path.join(DATA_PATH, "demo-semicolon.csv"), header=0)
 
-    def test_000_is_csv_delimiter_agnostic(self):
+    def test_000_is_csv_delimiter_agnostic_comma(self):
         """ The csv file can be opened however the delimiter """
         preset = self.file.df.columns.tolist()
         comma = Orc(os.path.join(DATA_PATH, "demo.csv"), header=0).df.columns.tolist()
-        semicolon = self.semicolon.df.columns.tolist()
-        self.assertEqual(semicolon, comma)
         self.assertEqual(preset, comma)
 
-    def test_001_is_default_header(self):
+    def test_001_is_csv_delimiter_agnostic_semicolon(self):
+        """ The csv file can be opened however the delimiter """
+        preset = self.file.df.columns.tolist()
+        semicolon = self.semicolon.df.columns.tolist()
+        self.assertEqual(preset, semicolon)
+
+    def test_002_is_default_header(self):
         """ When no header parameters, the default one is taken """
         comma = Orc(os.path.join(DATA_PATH, "demo.csv")).df
         self.assertFalse(comma.columns.values.all() == self.file.df.columns.values.all())
         self.assertTrue(list(comma) == Orc.DEFAULT_NAMES)
 
-    def test_002_open_from_directory(self):
+    def test_003_open_from_directory(self):
         """ Path can be a directory """
         self.file = Orc(os.path.join(DATA_PATH))
         self.assertTrue(self.file.df.shape[0] == 33)
 
-    def test_003_get_colum_values_as_list(self):
+    def test_004_get_colum_values_as_list(self):
         """ Make sure we get the column values from a csv file """
         self.assertEqual(TEST_DATA_COLUMN, self.file.get_column_values())
 
-    def test_x10_is_wrong_path_typeError(self):
+    def test_x10_is_wrong_path_empty(self):
         """ Wrong path type give typeError """
         print('\n\nWrong path input raise exception')
-        self.assertRaises(TypeError, check_path(2))
         self.assertRaises(TypeError, check_path([]))
+
+    def test_x11_is_wrong_path_numeric(self):
+        """ Wrong path type give typeError """
+        self.assertRaises(TypeError, check_path(2))
 
     def test_020_is_date_formatted_default(self):
         """ The date should be formatted in month """
@@ -74,8 +81,7 @@ class TestConverter(unittest.TestCase):
     def test_030_is_list_formatted(self):
         """ test column if formatted to list """
         self.file.format_column_list(2, regex=r'#')
-        self.assertTrue(type(self.file.df['Colors'][0]) == list)
-        self.assertTrue(len(self.file.df['Colors'][0]) == 2)
+        self.assertTrue(len(self.file.df['Colors'][0]) == 2 and type(self.file.df['Colors'][0]) == list)
 
     def test_031_are_new_column_created(self):
         """ Make sure columns are created """
@@ -90,13 +96,29 @@ class TestConverter(unittest.TestCase):
         self.file.create_from_list_column(2, names=['hashtag', 'hexa', 'stuff'])
         self.assertTrue(len(self.file.df.columns) == 6)
 
-    def test_x40_wrong_column(self):
+    def test_x40_wrong_column_string(self):
         """ Raise an error is a wrong column identifier is put """
         print('\n\nWrong column input raise exception')
-        self.assertRaises(TypeError, self.file.format_column_date(-1))
         self.assertRaises(ValueError, self.file.format_column_date('test'))
 
-    def test_x41_wrong_not_list_column(self):
+    def test_x41_wrong_column_negative_number(self):
+        """ Raise an error is a wrong column identifier is put """
+        self.assertRaises(TypeError, self.file.format_column_date(-1))
+
+    def test_x42_wrong_column_number(self):
+        """ Raise an error is a wrong column identifier is put """
+        self.assertRaises(IndexError, self.file.format_column_date(100))
+
+    def test_x43_wrong_date_format_number(self):
+        """ Raise an error is a wrong column identifier is put """
+        print('\n\nWrong format input raise exception')
+        self.assertRaises(TypeError, self.file.format_column_date(0, formatting=1))
+
+    def test_x44_wrong_date_format_string(self):
+        """ Raise an error is a wrong column identifier is put """
+        self.assertRaises(ValueError, self.file.format_column_date(0, formatting="not a format"))
+
+    def test_x45_wrong_not_list_column(self):
         """ Raise an error when the column has no list object for creation """
         print('\n\nWrong not list column raise exception')
         self.assertRaises(TypeError, self.file.create_from_list_column(2, names=['hashtag', 'hexa']))

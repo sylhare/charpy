@@ -22,6 +22,8 @@ def check_path(path):
 
 class Orc(object):
     """
+    Wrapper around a pandas dataframe
+
     Open the file
     Read the data
     Clean it accordingly
@@ -79,7 +81,7 @@ class Orc(object):
             try:
 
                 self.df[c] = list(map(lambda x: parse(x, dayfirst=dayfirst).date().strftime(formatting), self.df[c]))
-            except ValueError as error:
+            except (ValueError, TypeError) as error:
                 print("Couldn't parse through the dates - {}".format(error))
 
     def create_from_date_column(self, input_date_column, output_column_name, formatting):
@@ -162,7 +164,7 @@ class Orc(object):
             else:
                 raise ValueError("Error: column should be the number or the name of the column")
 
-        except (TypeError, ValueError) as error:
+        except (TypeError, ValueError, IndexError) as error:
             print(error)
             c_name = False
 
