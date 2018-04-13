@@ -1,5 +1,5 @@
 
-class Render(object):
+class Render(object): # pragma: no cover
     """ To render the chart """
 
     def __init__(self):
@@ -9,10 +9,10 @@ class Render(object):
         pass
 
 
-class Jsonify(object):
+class Jsonify(object): # pragma: no cover
     """ .. """
 
-    def to_json(self, indent=4):
+    def to_json(self, indent=0):
         """
 
         :return: a json string of the object
