@@ -19,6 +19,12 @@ class TestAppFactory(unittest.TestCase):
         self.assertTrue(b'#F7464A' in response.data)
         self.assertEqual(response.status_code, 200)
 
+    def test_dataframe_rendered(self):
+        """ Check that custom route works with the parameter """
+        response = self.client.get('/dataframe', content_type='html/text')
+        self.assertTrue(b'<table border="1" class="dataframe">' in response.data)
+        self.assertEqual(response.status_code, 200)
+
     def test_custom_route(self):
         """ Check that custom route works with the parameter """
         response = self.client.get('/hello/world/', content_type='html/text')
