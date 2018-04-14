@@ -1,7 +1,7 @@
 import os
 import unittest
 import datetime
-from charpy import DATA_PATH
+from charpy import MOCK_PATH, SQL_PATH, CHARPY_SQL
 from charpy.cruncher import Orc, check_path
 from tests import *
 
@@ -9,13 +9,13 @@ from tests import *
 class TestConverter(unittest.TestCase):
 
     def setUp(self):
-        self.file = Orc(os.path.join(DATA_PATH, "demo.csv"), sep=',', header=0)
-        self.semicolon = Orc(os.path.join(DATA_PATH, "demo-semicolon.csv"), header=0)
+        self.file = Orc(os.path.join(MOCK_PATH, "demo.csv"), sep=',', header=0)
+        self.semicolon = Orc(os.path.join(MOCK_PATH, "demo-semicolon.csv"), header=0)
 
     def test_000_is_csv_delimiter_agnostic_comma(self):
         """ The csv file can be opened however the delimiter """
         preset = self.file.df.columns.tolist()
-        comma = Orc(os.path.join(DATA_PATH, "demo.csv"), header=0).df.columns.tolist()
+        comma = Orc(os.path.join(MOCK_PATH, "demo.csv"), header=0).df.columns.tolist()
         self.assertEqual(preset, comma)
 
     def test_001_is_csv_delimiter_agnostic_semicolon(self):
@@ -26,13 +26,13 @@ class TestConverter(unittest.TestCase):
 
     def test_002_is_default_header(self):
         """ When no header parameters, the default one is taken """
-        comma = Orc(os.path.join(DATA_PATH, "demo.csv")).df
+        comma = Orc(os.path.join(MOCK_PATH, "demo.csv")).df
         self.assertFalse(comma.columns.values.all() == self.file.df.columns.values.all())
         self.assertTrue(list(comma) == Orc.DEFAULT_NAMES)
 
     def test_003_open_from_directory(self):
         """ Path can be a directory """
-        self.file = Orc(os.path.join(DATA_PATH))
+        self.file = Orc(os.path.join(MOCK_PATH))
         self.assertTrue(self.file.df.shape[0] == 33)
 
     def test_004_get_colum_values_as_list(self):
@@ -122,6 +122,13 @@ class TestConverter(unittest.TestCase):
         """ Raise an error when the column has no list object for creation """
         print('\n\nWrong not list column raise exception')
         self.assertRaises(TypeError, self.file.create_from_list_column(2, names=['hashtag', 'hexa']))
+
+    def test_050_is_database_created(self):
+        """ Check if the db is created """
+        test_db_path = os.path.join(SQL_PATH, str(datetime.date.today())+" - test.db")
+        self.file.create_sql_db(db_path=test_db_path)
+        self.assertTrue(os.path.exists(test_db_path))
+        os.remove(test_db_path)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,8 @@
 import os
-import pandas as pd
 import re
+import pandas as pd
+from charpy import CHARPY_SQL
+from sqlalchemy import create_engine
 from dateutil.parser import parse
 
 
@@ -84,7 +86,7 @@ class Orc(object):
             except (ValueError, TypeError) as error:
                 print("Couldn't parse through the dates - {}".format(error))
 
-    def create_from_date_column(self, input_date_column, output_column_name, formatting):
+    def create_from_date_column(self, input_date_column, output_column_name='', formatting='%d/%m/%Y'):
         """
         Create a column with a specific date format from a column where there are dates
 
@@ -93,6 +95,9 @@ class Orc(object):
         :param formatting: date formatting of the output column
                            use regex or simplified notification for day, month or year.
         """
+
+        if output_column_name == '':
+            output_column_name = formatting.replace("%", "")
 
         self.df[output_column_name] = self.df[self.__check_column(input_date_column)]
 
@@ -170,15 +175,31 @@ class Orc(object):
 
         return c_name
 
+    # TODO change 'replace' by fail and create a backup if enable before retrying with replace
+    def create_sql_db(self, name="charpy", db_path=CHARPY_SQL):
+        """
+        Dump the information of the dataframe into an sql format
+        If the sql database has already the same name table it will replace it.
+
+        :param db_path: Path of the database
+        :param name - will be the name of the sql table
+        """
+        engine = create_engine('sqlite:///' + db_path)
+        self.df.to_sql(name, engine, if_exists='replace')
+
 
 if __name__ == "__main__":  # pragma: no cover
-    from charpy import DATA_PATH, ROOT_PATH
-    s = Orc(os.path.join(DATA_PATH, 'pcbanking.csv'))
-    print(Orc(os.path.join(DATA_PATH, "demo.csv")).df)
+    from charpy import MOCK_PATH, ROOT_PATH
+    s = Orc(os.path.join(MOCK_PATH, 'pcbanking.csv'))
+    # print(Orc(os.path.join(DATA_PATH, "demo.csv")).df)
     s.df['value'] = s.df['value'].astype('float64')
-    print(s.df['value'].dtype)
+    # print(s.df['value'].dtype)
     # print(os.listdir(DATA_PATH))
     s.format_column_date('date')
     # s.format_column_list('label')
     # s.create_from_list_column('label')
-    print(s.df)
+    # print(s.df.to_html())
+    s.create_sql_db()
+
+
+

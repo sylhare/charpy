@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from charpy.utils import get_readme_rst
 
 setup(name='charpy',
-      version='0.6.0',
+      version='0.6.1',
       description='Render chart from data',
       long_description=get_readme_rst(),
       classifiers=[
@@ -17,7 +17,7 @@ setup(name='charpy',
       license='MIT',
       packages=find_packages(exclude=['docs']),
       include_package_data=True,
-      install_requires=['flask>=0.12', 'python-dateutil', 'pandas'],
+      install_requires=['flask>=0.12', 'python-dateutil', 'pandas', 'sqlalchemy'],
       tests_require=['pytest==2.9.2'],
       extras_require={
           'dev': ['pypandoc', 'setuptools'],
