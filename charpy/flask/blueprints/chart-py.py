@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 import os
 from charpy.cruncher import Orc
-from charpy import DATA_PATH
+from charpy import MOCK_PATH
 
 bp = Blueprint('charpy', __name__, template_folder='templates')
 
@@ -9,7 +9,7 @@ bp = Blueprint('charpy', __name__, template_folder='templates')
 @bp.route('/')
 @bp.route('/charpy')
 def chart_demo():
-    demo = Orc(os.path.join(DATA_PATH, "pcbanking.csv"))
+    demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     return render_template('chart-py.html', values=demo.df['value'], labels=demo.df['label'], type='pie')
 
 
