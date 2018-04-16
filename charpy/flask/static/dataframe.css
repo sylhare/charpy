@@ -1,0 +1,27 @@
+.dataframe {
+    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.dataframe th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #336699;
+    color: white;
+}
+
+.dataframe td,
+.dataframe th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.dataframe tr td:hover {
+    background-color: #ddd;
+}
+
+.dataframe tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}

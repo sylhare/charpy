@@ -175,6 +175,10 @@ class Orc(object):
 
         return c_name
 
+    def get_json_data(self, column_name):
+        """ Return the json data of a column """
+        return self.df[column_name].to_json()
+
     # TODO change 'replace' by fail and create a backup if enable before retrying with replace
     def create_sql_db(self, name="charpy", db_path=CHARPY_SQL):
         """

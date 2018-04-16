@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, abort, Response
 import os
 from charpy.cruncher import Orc
 from charpy import MOCK_PATH
@@ -6,7 +6,7 @@ from charpy import MOCK_PATH
 bp = Blueprint('dataframe', __name__, template_folder='templates')
 
 
-@bp.route('/dataframe')
+@bp.route('/v1/dataframe')
 def chart_demo():
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     demo.format_column_list('label')
@@ -15,9 +15,18 @@ def chart_demo():
     demo.create_from_date_column('date', formatting='month')
     demo.create_from_date_column('date', formatting='year')
 
-    collapse_border = "<style>.dataframe {font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;}"
-    header = ".dataframe th {padding-top: 12px;padding-bottom: 12px;text-align: left;background-color: #336699;color: white;}"
-    padding_border = ".dataframe td, .dataframe th {border: 1px solid #ddd;padding: 8px;}"
-    hover = ".dataframe tr td:hover {background-color: #ddd;}"
-    highlight = ".dataframe tbody tr:nth-child(even) {background-color: #f8f8f8;}</style>"
-    return collapse_border + header + hover + padding_border + highlight + demo.df.to_html()
+    return demo.df.to_html()
+
+
+@bp.route("/v1/dataframe/<string:column>/", methods = ['GET'])
+def get_dataframe_data(column):
+    demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
+    try:
+        response = Response(
+            response=demo.get_json_data(column),
+            status=200,
+            mimetype='application/json'
+        )
+        return response
+    except KeyError:
+        abort(404)
