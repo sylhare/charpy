@@ -4,7 +4,7 @@ Use export FLASK_APP="charpy.factory:create_app()"
 
 
 """
-from flask import Flask, current_app
+from flask import Flask
 from sqlite3 import dbapi2 as sqlite3
 from sqlalchemy import create_engine
 from charpy import CHARPY_SQL
