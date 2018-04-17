@@ -10,12 +10,12 @@ class TestAppFactory(unittest.TestCase):
 
     def test_index(self):
         """inital test. ensure flask was set up correctly"""
-        response = self.client.get('/', content_type='html/text')
+        response = self.client.get('/chart/demo', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
     def test_chart_with_data(self):
         """ Check that static demo is displayed with value """
-        response = self.client.get('/static', content_type='html/text')
+        response = self.client.get('/chart/static', content_type='html/text')
         self.assertTrue(b'#F7464A' in response.data)
         self.assertEqual(response.status_code, 200)
 

@@ -1,0 +1,8 @@
+{% extends "layout/default.html" -%}
+{% block head %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataframe.css') }}">
+{% endblock %}
+{% block content -%}
+<h1>Dataframe</h1>
+{{ body | safe }}
+{%- endblock %}

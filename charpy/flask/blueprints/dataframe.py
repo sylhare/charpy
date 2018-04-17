@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, Response
+from flask import Blueprint, abort, Response, render_template
 import os
 from charpy.cruncher import Orc
 from charpy import MOCK_PATH
@@ -15,7 +15,7 @@ def chart_demo():
     demo.create_from_date_column('date', formatting='month')
     demo.create_from_date_column('date', formatting='year')
 
-    return demo.df.to_html()
+    return render_template('dataframe.html', body=demo.df.to_html())
 
 
 @bp.route("/v1/dataframe/<string:column>/", methods = ['GET'])
