@@ -15,7 +15,7 @@ def chart_demo():
     demo.create_from_date_column('date', formatting='month')
     demo.create_from_date_column('date', formatting='year')
 
-    return render_template('dataframe.html', body=demo.df.to_html())
+    return render_template(os.path.join('view', 'dataframe.html'), body=demo.df.to_html())
 
 
 @bp.route("/v1/dataframe/<string:column>/", methods = ['GET'])
