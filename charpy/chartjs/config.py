@@ -1,4 +1,3 @@
-from charpy.chart import Jsonify
 from charpy.chartjs.data import *
 
 

@@ -1,4 +1,4 @@
-from charpy.chart import Jsonify
+from charpy.chartjs.chart import Jsonify
 
 data_number = [20, 10]
 data_point = [{'y': 20, 'x': 10}, {'y': 10, 'x': 15}]
