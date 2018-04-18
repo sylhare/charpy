@@ -9,7 +9,7 @@
 
     <!-- import plugin script -->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment"></script> -->
-    <script src="../v2.7.2/chart.bundle.min.js"></script>
+    <script src="../chartjs/v2.7.2/chart.bundle.min.js"></script>
 
 </head>
 
@@ -82,7 +82,7 @@
             data: {
                 datasets: [{
                     label: 'First dataset',
-                    data: [0, 20, 40, 50]
+                    data: [0, 20, 40, 50, 50, 60]
                 }],
                 labels: ['January', 'February', 'March', 'April']
             },
@@ -107,7 +107,7 @@
        */
 
        // With time ~ not working so well
-       new Chart(ctx, {
+      /*new Chart(ctx, {
             type: 'line',
             data: [{
                 x: new Date(),
@@ -131,7 +131,7 @@
                     }]
                 }
             }
-        })
+        })*/
     </script>
 </body>
 
