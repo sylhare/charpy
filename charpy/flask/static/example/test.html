@@ -132,6 +132,29 @@
                 }
             }
         })*/
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+
+                datasets: [{
+                    label: 'First dataset',
+                    data: [0, 20, 40, 50, 50, 60]
+                }],
+                labels: ['January', 'February', 'March', 'April']
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 20,
+                            suggestedMax: 70
+                        }
+                    }]
+                }
+            }
+        });
+
     </script>
 </body>
 
