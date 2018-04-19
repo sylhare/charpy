@@ -19,3 +19,4 @@
 /.cache/*
 .coverage
 .eggs/*
+/charpy/chartjs/dash.py

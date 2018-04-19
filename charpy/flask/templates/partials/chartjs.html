@@ -1,0 +1,25 @@
+{% if script_local %}
+     <script src="{{ url_for('static', filename='chartjs/v2.7.2/chart.min.js') }}"></script>
+{% else %}
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+{% endif %}
+
+<canvas id="{{ id }}" width="600" height="400"></canvas>
+
+<script>
+    new Chart(document.getElementById("{{ id }}"), {
+        type: {{ type }},
+        data: {
+          labels: {{ labels | tojson }},
+          datasets: [ {{ datasets }} ]
+        },
+        options: {
+          legend: { display: {{ legend_display }} },
+          title: {
+            display: {{ title_display }},
+            text: '{{ title }}'
+          }
+        }
+    });
+
+ </script>
