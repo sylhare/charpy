@@ -9,7 +9,7 @@
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
 /*.egg
-/bin/charpy.egg-info/
+/bin/charpy.egg-info/*
 
 # IDE and OS files
 .idea/*
@@ -20,3 +20,4 @@
 .coverage
 .eggs/*
 /charpy/chartjs/dash.py
+/charpy/flask/static/example/*

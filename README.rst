@@ -1,11 +1,9 @@
 Chart App
 =========
 
-|PyPI version| |Build Status| |codecov| |Codacy Badge| |Maintainability|
-|Test Coverage|
+|PyPI version| |Build Status| |codecov| |Codacy Badge|
 
-This is a web app designed to crunch data into charts. The interesting
-part is where the data is crunched.
+This is a web app designed to crunch data into charts.
 
 Demo
 ----
@@ -25,7 +23,8 @@ Used for this project:
 Python
 ~~~~~~
 
--  Flask - base of the microservice
+-  Flask - base of the microservice (Jinja2 for templating)
+-  SQLAlchemy - for database manipulation
 -  Pandas - for the dataframe object and data manipulation
 -  dateutils - for the date and time parser
 
@@ -42,7 +41,3 @@ Javascript
    :target: https://codecov.io/gh/Sylhare/charpy
 .. |Codacy Badge| image:: https://api.codacy.com/project/badge/Grade/7ecd2366da08459aa8c7af9c489dc65c
    :target: https://www.codacy.com/app/Sylhare/charpy?utm_source=github.com&utm_medium=referral&utm_content=Sylhare/charpy&utm_campaign=Badge_Grade
-.. |Maintainability| image:: https://api.codeclimate.com/v1/badges/ad17a7f76d6421c83b61/maintainability
-   :target: https://codeclimate.com/github/Sylhare/charpy/maintainability
-.. |Test Coverage| image:: https://api.codeclimate.com/v1/badges/ad17a7f76d6421c83b61/test_coverage
-   :target: https://codeclimate.com/github/Sylhare/charpy/test_coverage
