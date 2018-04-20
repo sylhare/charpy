@@ -21,18 +21,18 @@ class TestAppFactory(unittest.TestCase):
 
     def test_dataframe_rendered(self):
         """ Check that custom route works with the parameter """
-        response = self.client.get('/v1/dataframe', content_type='html/text')
+        response = self.client.get('/dataframe', content_type='html/text')
         self.assertTrue(b'<table border="1" class="dataframe">' in response.data)
         self.assertEqual(response.status_code, 200)
 
     def test_get_data_from_dataframe(self):
         """ Check that data is reachable """
-        response = self.client.get('/v1/dataframe/date/')
+        response = self.client.get('/dataframe/date/')
         self.assertEqual(response.status_code, 200)
 
     def test_is_data_json(self):
         """ Check that data collected is in json format """
-        response = self.client.get('/v1/dataframe/label/')
+        response = self.client.get('/dataframe/label/')
         self.assertEqual(response.mimetype, 'application/json')
 
     def test_custom_route(self):

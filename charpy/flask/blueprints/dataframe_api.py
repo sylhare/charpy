@@ -6,7 +6,7 @@ from charpy import MOCK_PATH
 bp = Blueprint('dataframe', __name__, template_folder='templates')
 
 
-@bp.route('/v1/dataframe')
+@bp.route('/dataframe')
 def chart_demo():
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     demo.format_column_list('label')
@@ -18,7 +18,7 @@ def chart_demo():
     return render_template(os.path.join('view', 'dataframe.html'), body=demo.df.to_html())
 
 
-@bp.route("/v1/dataframe/<string:column>/", methods = ['GET'])
+@bp.route("/dataframe/<string:column>/", methods=['GET'])
 def get_dataframe_data(column):
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     try:
