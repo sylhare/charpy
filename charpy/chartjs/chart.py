@@ -1,9 +1,10 @@
+import json
 from flask import render_template
 from charpy.chartjs import check_chart_type
 
-
+# TODO False is false in javascript /!\ to implement
 class Chart(object):
-    def __init__(self, chart_type, legend_display=False, canvas_id='chart'):
+    def __init__(self, chart_type, legend_display='false', canvas_id='chart'):
         self.canvas_id = canvas_id
         self.chart_type = check_chart_type(chart_type)
         self.labels = []
@@ -20,11 +21,12 @@ class Chart(object):
     def title(self, title):
         """ Need to set display to true """
         if title is not None and title != '':
-            self._title_display = True
+            self._title_display = 'true'
             self._title = title
         else:
             raise ValueError("Error: Can't set '{}' - an empty String or None to title'".format(title))
 
+    #TODO update toggle_legend to be javascript compatible
     def toggle_legend(self):
         """ toggle the display of the legend between True or False """
         self.legend_display = not self.legend_display
@@ -37,18 +39,17 @@ class Chart(object):
         :param data:
         :return:
         """
-        pass
-
-    def set_canvas_id(self, canvas_id):
-        pass
+        self.datasets = {"label": data_label, "data": data}
+        print(self.datasets)
 
     def render_flask(self, flask_template):
+        print(self.datasets)
         return render_template(flask_template,
                                script_local=True,
                                id=self.canvas_id,
                                type=self.chart_type,
                                labels=self.labels,
-                               datasets=self.datasets.to_json(),
+                               datasets=self.datasets,
                                legend_display=self.legend_display,
                                title_display=self._title_display,
                                title=self._title
@@ -74,30 +75,14 @@ class Dataset(object):
         else:
             raise TypeError("Error: data can't be a string - '{}'".format(data))
 
-    def set_colors(self, backgroundColor, borderColor):
-        """
-
-        :param backgroundColor:
-        :param borderColor:
-        :return:
-        """
-        self.backgroundColor = backgroundColor
-        self.borderColor = borderColor
-
     def to_json(self):
-        dict_dataset = ''
 
-        #import json
-
-        #return json.dump(dict_dataset)
+        return json.dumps(self.__dict__, sort_keys=True, ensure_ascii=False)
 
 
 class LineDataset(Dataset):
-    def set_color_param(self, fill=False, showLine=True):
-        """
 
-        :param fill: fill of backgroundColor between line and x axe
-        :param showLine: Show the line in between points for a line chart.
-        :return:
-        """
-        pass
+    def __init__(self, data, label, fill=False, showLine=True):
+        super().__init__(data, label)
+        self.fill = fill
+        self.showLine = showLine

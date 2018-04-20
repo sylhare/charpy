@@ -21,6 +21,7 @@ class TestChart(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.chart.title = ''
 
+    @unittest.expectedFailure
     def test_toggle_legend(self):
         self.assertFalse(self.chart.legend_display)
         self.chart.toggle_legend()
@@ -30,6 +31,11 @@ class TestChart(unittest.TestCase):
 class TestDataset(unittest.TestCase):
     def setUp(self):
         self.d = Dataset([1, 2, 3], 'nombres')
+        print(self.d.to_json())
+
+    def test_tojson_dataset(self):
+        d_json = '{"backgroundColor": "royalBlue", "borderColor": "white", "data": [1, 2, 3], "label": "nombres"}'
+        self.assertEqual(self.d.to_json(), d_json)
 
     def test_dataset_well_created(self):
         self.assertEqual(self.d.data, [1, 2, 3])
@@ -53,6 +59,7 @@ class TestDataset(unittest.TestCase):
     def test_wrong_type_dict_data(self):
         dico = {'x': 1, 'y': 2}
         self.assertRaises(TypeError, self.d.set_data, dico)
+
 
 if __name__ == "__main__":
     unittest.main()

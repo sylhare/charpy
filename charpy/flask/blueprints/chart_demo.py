@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template
 import os
 from charpy.cruncher import Orc
 from charpy import MOCK_PATH
+from charpy.chartjs import chart
+from flask import Blueprint, render_template
 
 bp = Blueprint('charpy', __name__, template_folder='templates')
 
@@ -20,6 +21,16 @@ def chart_static_demo():
     colors = ["#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA", "#ABCDEF", "#DDDDDD", "#ABCABC", "#BCAFED"]
     return render_template('view/chart_static.html', version="1.0.1", values=values, labels=labels, set=zip(values, labels, colors))
 
+
+@bp.route('/chart/charpy')
+def chart_chartjs():
+    demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
+    chart_sdemo = chart.Chart('bar')
+    chart_sdemo.title = "Test chart from template"
+    chart_sdemo.add_dataset('value', demo.df['value'].tolist())
+    chart_sdemo.labels = demo.df['label'].tolist()
+
+    return chart_sdemo.render_flask('view/chartjs_default.html')
 
 @bp.route("/hello/<string:name>/")
 def hello(name):

@@ -8,10 +8,10 @@
 
 <script>
     new Chart(document.getElementById("{{ id }}"), {
-        type: {{ type }},
+        type: '{{ type }}',
         data: {
           labels: {{ labels | tojson }},
-          datasets: [ {{ datasets }} ]
+          datasets: [{{ datasets | tojson }}]
         },
         options: {
           legend: { display: {{ legend_display }} },
