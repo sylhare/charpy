@@ -1,7 +1,18 @@
-from charpy.chartjs.chart import Jsonify
-
 data_number = [20, 10]
 data_point = [{'y': 20, 'x': 10}, {'y': 10, 'x': 15}]
+
+
+class Jsonify(object): # pragma: no cover
+    """ .. """
+
+    def to_json(self, indent=0):
+        """
+
+        :return: a json string of the object
+        """
+        import json
+
+        return json.dumps(self.__dict__, indent=indent)
 
 
 class Dataset(Jsonify): # pragma: no cover

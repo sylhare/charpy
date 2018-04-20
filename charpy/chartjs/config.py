@@ -24,6 +24,6 @@ class Options(Jsonify): # pragma: no cover
 
 
 if __name__ == "__main__":  # pragma: no cover
-    #my_config = Config('bar', [1, 2, 3], {'opt1': 1, 'opt2': ['v1', 'v2']})
+    # my_config = Config('bar', [1, 2, 3], {'opt1': 1, 'opt2': ['v1', 'v2']})
     my_config = Config('bar')
     print(type(my_config.to_json()))

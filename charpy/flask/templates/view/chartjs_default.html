@@ -1,0 +1,8 @@
+{% extends "layout/default.html" -%}
+{% block head %}
+<script src="{{ url_for('static', filename='chartjs/v2.7.2/chart.min.js') }}"></script>
+{% endblock %}
+{% block content -%}
+<h1>Flask Chart.js</h1>
+{% include "partials/defaultchart.html" %}
+{%- endblock %}

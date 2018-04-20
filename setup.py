@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from charpy.utils import get_readme_rst
 
 setup(name='charpy',
-      version='0.6.4',
+      version='0.7.0',
       description='Render chart from data',
       long_description=get_readme_rst(),
       classifiers=[

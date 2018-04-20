@@ -1,4 +1,3 @@
-
 __chartjs_version__ = "2.7.2"
 
 LINE = "line"
@@ -11,7 +10,6 @@ PIE = "pie"
 BUBBLE = "bubble"
 SCATTER = "scatter"
 
-
 TYPE = {
     LINE,
     BAR,
@@ -23,3 +21,23 @@ TYPE = {
     BUBBLE,
     SCATTER
 }
+
+
+def is_chartjs_type(chart_type):
+    """
+    Return True if the chart type is handled by chartjs
+
+    :param chart_type:
+    :return: True or False
+    """
+    if chart_type in TYPE:
+        return True
+    else:
+        return False
+
+
+def check_chart_type(chart_type):
+    if is_chartjs_type(chart_type):
+        return chart_type
+    else:
+        raise TypeError("Error: The type '{}' is not a handled chartjs type".format(chart_type))
