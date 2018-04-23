@@ -40,10 +40,8 @@ class Chart(object):
         :return:
         """
         self.datasets = {"label": data_label, "data": data}
-        print(self.datasets)
 
     def render_flask(self, flask_template):
-        print(self.datasets)
         return render_template(flask_template,
                                script_local=True,
                                id=self.canvas_id,

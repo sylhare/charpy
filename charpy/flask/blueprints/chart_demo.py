@@ -32,6 +32,7 @@ def chart_chartjs():
 
     return chart_sdemo.render_flask('view/chartjs_default.html')
 
+
 @bp.route("/hello/<string:name>/")
 def hello(name):
     return "hello " + name + "!"
