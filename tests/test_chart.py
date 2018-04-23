@@ -31,7 +31,6 @@ class TestChart(unittest.TestCase):
 class TestDataset(unittest.TestCase):
     def setUp(self):
         self.d = Dataset([1, 2, 3], 'nombres')
-        print(self.d.to_json())
 
     def test_600_tojson_dataset(self):
         d_json = '{"backgroundColor": "royalBlue", "borderColor": "white", "data": [1, 2, 3], "label": "nombres"}'
@@ -43,20 +42,30 @@ class TestDataset(unittest.TestCase):
         self.assertEqual(self.d.borderColor, "white")
         self.assertEqual(self.d.backgroundColor, "royalBlue")
 
-    def test_602x_wrong_type_label(self):
+    def test_610_set_label(self):
+        label = "the label"
+        self.d.set_label(label)
+        self.assertEqual(self.d.label, label)
+
+    def test_611x_wrong_type_label(self):
         self.assertRaises(TypeError, self.d.set_label, 1)
 
-    def test_603x_wrong_type_numeric_data(self):
+    def test_620_set_data(self):
+        data = [4, 5, 6]
+        self.d.set_data(data)
+        self.assertEqual(self.d.data, data)
+
+    def test_621x_wrong_type_numeric_data(self):
         self.assertRaises(TypeError, self.d.set_data, 1)
 
-    def test_604x_wrong_type_string_data(self):
+    def test_622x_wrong_type_string_data(self):
         self.assertRaises(TypeError, self.d.set_data, 'abc')
 
-    def test_605x_wrong_type_tuple_or_dict_data(self):
+    def test_623x_wrong_type_tuple_or_dict_data(self):
         tupo = (1, 2)
         self.assertRaises(TypeError, self.d.set_data, tupo)
 
-    def test_606x_wrong_type_dict_data(self):
+    def test_624x_wrong_type_dict_data(self):
         dico = {'x': 1, 'y': 2}
         self.assertRaises(TypeError, self.d.set_data, dico)
 

@@ -50,41 +50,29 @@ class TestAppFactory(unittest.TestCase):
         self.assertTrue(b'bar' in response.data)
         self.assertEqual(response.status_code, 200)
 
-    def test_311_chart_api_with_type_bar(self):
-        chart_type = chartjs.BAR
+    def case_chart_api_with_type(self, chart_type):
+        """ Case for the chart rendered of the good type with the api """
         response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
-        self.assertTrue(chart_type in response.data)
+        self.assertTrue(chart_type in str(response.data))
         self.assertEqual(response.status_code, 200)
+
+    def test_311_chart_api_with_type_bar(self):
+        self.case_chart_api_with_type(chartjs.BAR)
 
     def test_312_chart_api_with_type_pie(self):
-        chart_type = chartjs.PIE
-        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
-        self.assertTrue(chart_type in response.data)
-        self.assertEqual(response.status_code, 200)
+        self.case_chart_api_with_type(chartjs.PIE)
 
     def test_313_chart_api_with_type_radar(self):
-        chart_type = chartjs.RADAR
-        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
-        self.assertTrue(chart_type in response.data)
-        self.assertEqual(response.status_code, 200)
+        self.case_chart_api_with_type(chartjs.RADAR)
 
     def test_314_chart_api_with_type_bubble(self):
-        chart_type = chartjs.BUBBLE
-        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
-        self.assertTrue(chart_type in response.data)
-        self.assertEqual(response.status_code, 200)
+        self.case_chart_api_with_type(chartjs.BUBBLE)
 
     def test_315_chart_api_with_type_scatter(self):
-        chart_type = chartjs.SCATTER
-        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
-        self.assertTrue(chart_type in response.data)
-        self.assertEqual(response.status_code, 200)
+        self.case_chart_api_with_type(chartjs.SCATTER)
 
     def test_316_chart_api_with_type_polar(self):
-        chart_type = chartjs.POLAR_AREA
-        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
-        self.assertTrue(chart_type in response.data)
-        self.assertEqual(response.status_code, 200)
+        self.case_chart_api_with_type(chartjs.POLAR_AREA)
 
     def test_400_dataframe_rendered(self):
         """ Check that custom route works with the parameter """
