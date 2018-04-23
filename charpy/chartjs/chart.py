@@ -78,7 +78,7 @@ class Dataset(object):
         return json.dumps(self.__dict__, sort_keys=True, ensure_ascii=False)
 
 
-class LineDataset(Dataset):
+class LineDataset(Dataset):  # pragma: no cover
 
     def __init__(self, data, label, fill=False, showLine=True):
         super().__init__(data, label)

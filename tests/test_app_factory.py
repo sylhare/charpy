@@ -1,5 +1,6 @@
 import unittest
 from charpy.flask.factory import create_app
+from charpy import chartjs
 
 
 class TestAppFactory(unittest.TestCase):
@@ -25,32 +26,64 @@ class TestAppFactory(unittest.TestCase):
         self.assertTrue(b'WAS NOT FOUND' in response.data)
         self.assertEqual(response.status_code, 404)
 
+    def test_203_error_501_not_implemented(self):
+        """ Check that the 404 is correctly rendered """
+        response = self.client.get('/chart/populationgraph/', content_type='html/text')
+        self.assertTrue(b'NOT IMPLEMENTED' in response.data)
+        self.assertEqual(response.status_code, 501)
+
     def test_300_chart_with_static_data(self):
         """ Check that static demo is displayed with value """
         response = self.client.get('/chart_demo/static/', content_type='html/text')
         self.assertTrue(b'#F7464A' in response.data)
         self.assertEqual(response.status_code, 200)
 
-    def test_300_chart_with_input_data(self):
+    def test_301_chart_with_input_data(self):
         """inital test. ensure flask was set up correctly"""
         response = self.client.get('/chart_demo/default/', content_type='html/text')
         self.assertTrue(b'pie' in response.data)
         self.assertEqual(response.status_code, 200)
 
-    def test_301_chart_api_with_type_bar(self):
-        response = self.client.get('/chart/bar/', content_type='html/text')
+    def test_302_chart_with_chart_object(self):
+        """ Check that static demo is displayed with value """
+        response = self.client.get('/chart_demo/charpy/', content_type='html/text')
         self.assertTrue(b'bar' in response.data)
-        print(response.data)
         self.assertEqual(response.status_code, 200)
 
-    def test_301_chart_api_with_type_pie(self):
-        response = self.client.get('/chart/pie/', content_type='html/text')
-        self.assertTrue(b'pie' in response.data)
+    def test_311_chart_api_with_type_bar(self):
+        chart_type = chartjs.BAR
+        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
+        self.assertTrue(chart_type in response.data)
         self.assertEqual(response.status_code, 200)
 
-    def test_301_chart_api_with_type_pie(self):
-        response = self.client.get('/chart/pie/', content_type='html/text')
-        self.assertTrue(b'pie' in response.data)
+    def test_312_chart_api_with_type_pie(self):
+        chart_type = chartjs.PIE
+        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
+        self.assertTrue(chart_type in response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_313_chart_api_with_type_radar(self):
+        chart_type = chartjs.RADAR
+        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
+        self.assertTrue(chart_type in response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_314_chart_api_with_type_bubble(self):
+        chart_type = chartjs.BUBBLE
+        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
+        self.assertTrue(chart_type in response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_315_chart_api_with_type_scatter(self):
+        chart_type = chartjs.SCATTER
+        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
+        self.assertTrue(chart_type in response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_316_chart_api_with_type_polar(self):
+        chart_type = chartjs.POLAR_AREA
+        response = self.client.get('/chart/' + chart_type + '/', content_type='html/text')
+        self.assertTrue(chart_type in response.data)
         self.assertEqual(response.status_code, 200)
 
     def test_400_dataframe_rendered(self):
