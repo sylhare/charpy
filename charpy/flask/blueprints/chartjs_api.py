@@ -7,7 +7,7 @@ from flask import Blueprint, abort
 bp = Blueprint('chartjs', __name__, template_folder='templates')
 
 
-@bp.route('/chartjs/<string:chartype>/', methods=['GET'])
+@bp.route('/chart/<string:chartype>/', methods=['GET'])
 def chart_chartjs(chartype):
 
     if is_chartjs_type(chartype):

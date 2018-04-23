@@ -10,12 +10,12 @@ class TestAppFactory(unittest.TestCase):
 
     def test_200_index(self):
         """inital test. ensure flask was set up correctly"""
-        response = self.client.get('/chart/demo', content_type='html/text')
+        response = self.client.get('/', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
     def test_201_custom_route(self):
         """ Check that custom route works with the parameter """
-        response = self.client.get('/hello/world/', content_type='html/text')
+        response = self.client.get('/chart_demo/hello/world/', content_type='html/text')
         self.assertTrue(b'hello world!' in response.data)
         self.assertEqual(response.status_code, 200)
 
@@ -25,10 +25,32 @@ class TestAppFactory(unittest.TestCase):
         self.assertTrue(b'WAS NOT FOUND' in response.data)
         self.assertEqual(response.status_code, 404)
 
-    def test_300_chart_with_data(self):
+    def test_300_chart_with_static_data(self):
         """ Check that static demo is displayed with value """
-        response = self.client.get('/chart/static', content_type='html/text')
+        response = self.client.get('/chart_demo/static/', content_type='html/text')
         self.assertTrue(b'#F7464A' in response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_300_chart_with_input_data(self):
+        """inital test. ensure flask was set up correctly"""
+        response = self.client.get('/chart_demo/default/', content_type='html/text')
+        self.assertTrue(b'pie' in response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_301_chart_api_with_type_bar(self):
+        response = self.client.get('/chart/bar/', content_type='html/text')
+        self.assertTrue(b'bar' in response.data)
+        print(response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_301_chart_api_with_type_pie(self):
+        response = self.client.get('/chart/pie/', content_type='html/text')
+        self.assertTrue(b'pie' in response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_301_chart_api_with_type_pie(self):
+        response = self.client.get('/chart/pie/', content_type='html/text')
+        self.assertTrue(b'pie' in response.data)
         self.assertEqual(response.status_code, 200)
 
     def test_400_dataframe_rendered(self):

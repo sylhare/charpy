@@ -8,7 +8,7 @@ bp = Blueprint('dataframe', __name__, template_folder='templates')
 
 @bp.route('/dataframe/')
 def dataframe_json_all():
-    demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
+    demo = Orc(os.path.join(MOCK_PATH, 'pcbanking.csv'))
 
     response = Response(
         response=demo.df.to_json(),
@@ -21,7 +21,7 @@ def dataframe_json_all():
 
 @bp.route('/dataframe/html/')
 def dataframe_html():
-    demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
+    demo = Orc(os.path.join(MOCK_PATH, 'pcbanking.csv'))
     demo.format_column_list('label')
     demo.create_from_list_column('label')
     demo.create_from_date_column('date', formatting='day')
@@ -31,7 +31,7 @@ def dataframe_html():
     return render_template(os.path.join('view', 'dataframe.html'), body=demo.df.to_html())
 
 
-@bp.route("/dataframe/<string:column>/", methods=['GET'])
+@bp.route('/dataframe/<string:column>/', methods=['GET'])
 def dataframe_json_column(column):
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     try:
