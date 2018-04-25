@@ -95,6 +95,10 @@ class TestAppFactory(unittest.TestCase):
         response = self.client.get('/dataframe/label/')
         self.assertEqual(response.mimetype, 'application/json')
 
+    def test_404_wrong_column_raise_404(self):
+        response = self.client.get('/dataframe/not a column name/')
+        self.assertEqual(response.status_code, 404)
+
 
 if __name__ == "__main__":
     unittest.main()
