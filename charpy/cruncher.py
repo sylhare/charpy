@@ -1,7 +1,7 @@
 import os
 import re
 import pandas as pd
-from charpy import CHARPY_SQL
+from charpy import DEFAULT_DB_URI
 from sqlalchemy import create_engine
 from dateutil.parser import parse
 
@@ -180,7 +180,7 @@ class Orc(object):
         return self.df[column_name].to_json()
 
     # TODO change 'replace' by fail and create a backup if enable before retrying with replace
-    def create_sql_db(self, name="charpy", db_path=CHARPY_SQL):
+    def create_sql_db(self, name="charpy", db_path=DEFAULT_DB_URI):
         """
         Dump the information of the dataframe into an sql format
         If the sql database has already the same name table it will replace it.

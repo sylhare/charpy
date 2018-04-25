@@ -5,9 +5,7 @@ Use export FLASK_APP="charpy.factory:create_app()"
 
 """
 from flask import Flask
-from sqlite3 import dbapi2 as sqlite3
-from sqlalchemy import create_engine
-from charpy import CHARPY_SQL
+from charpy import TEST_DATABASE_URI
 from werkzeug.utils import find_modules, import_string
 
 
@@ -16,7 +14,7 @@ def create_app(config=None, debug=False):
     app.debug = debug
 
     app.config.update(dict(
-        DATABASE=CHARPY_SQL,
+        DATABASE=TEST_DATABASE_URI,
         DEBUG=True,
         SECRET_KEY='development key',
         USERNAME='admin',

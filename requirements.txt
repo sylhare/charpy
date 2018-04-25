@@ -1,7 +1,7 @@
 pandas
-jinja2
 python-dateutil
 flask
+flask-sqlalchemy
 sqlalchemy
 setuptools
 pypandoc

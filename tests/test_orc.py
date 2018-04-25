@@ -1,7 +1,7 @@
 import os
 import unittest
 import datetime
-from charpy import MOCK_PATH, SQL_PATH, CHARPY_SQL
+from charpy import MOCK_PATH, SQL_PATH, TEST_DATABASE_URI
 from charpy.cruncher import Orc, check_path
 from tests import *
 
@@ -125,10 +125,9 @@ class TestConverter(unittest.TestCase):
 
     def test_150_is_database_created(self):
         """ Check if the db is created """
-        test_db_path = os.path.join(SQL_PATH, str(datetime.date.today())+" - test.db")
+        test_db_path = TEST_DATABASE_URI
         self.file.create_sql_db(db_path=test_db_path)
         self.assertTrue(os.path.exists(test_db_path))
-        os.remove(test_db_path)
 
 
 if __name__ == "__main__":
