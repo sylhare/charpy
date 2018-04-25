@@ -1,5 +1,8 @@
 __chartjs_version__ = "2.7.2"
 
+JS_CONVERT = {True: 'true', False: 'false'}
+PYTHON_CONVERT = {'true': True, 'false': False}
+
 LINE = "line"
 BAR = "bar"
 HORIZONTAL_BAR = "horizontalBar"

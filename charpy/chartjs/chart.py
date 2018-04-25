@@ -1,15 +1,20 @@
 import json
 from flask import render_template
-from charpy.chartjs import check_chart_type
+from charpy.chartjs import check_chart_type, JS_CONVERT, PYTHON_CONVERT
 
-# TODO False is false in javascript /!\ to implement
+
 class Chart(object):
-    def __init__(self, chart_type, legend_display='false', canvas_id='chart'):
+    def __init__(self, chart_type, legend_display=False, canvas_id='chart'):
         self.canvas_id = canvas_id
         self.chart_type = check_chart_type(chart_type)
         self.labels = []
         self.datasets = None
-        self.legend_display = legend_display
+
+        try:
+            self._legend_display = JS_CONVERT[legend_display]
+        except KeyError:
+            raise ValueError("legend_display, can only accept True or False - input: '{}'".format(legend_display))
+
         self._title = ''
         self._title_display = False
 
@@ -19,17 +24,35 @@ class Chart(object):
 
     @title.setter
     def title(self, title):
-        """ Need to set display to true """
+        """
+        Set _title.display to 'true' the javascript value for True
+        When the title is set.
+
+        """
         if title is not None and title != '':
-            self._title_display = 'true'
+            self._title_display = JS_CONVERT[True]
             self._title = title
         else:
             raise ValueError("Error: Can't set '{}' - an empty String or None to title'".format(title))
 
-    #TODO update toggle_legend to be javascript compatible
-    def toggle_legend(self):
-        """ toggle the display of the legend between True or False """
-        self.legend_display = not self.legend_display
+    @title.getter
+    def title(self):
+        """ Return the title if it is displayed """
+        if PYTHON_CONVERT[self._title_display]:
+            return self._title
+        else:
+            return None
+
+    def toggle_legend_display(self):
+        """
+        toggle the display of the legend between 'true' or 'false'
+        which are the javascript equivalent for True and False.
+
+        Then return the legend display value into python Boolean.
+
+        """
+        self._legend_display = JS_CONVERT[not PYTHON_CONVERT[self._legend_display]]
+        return PYTHON_CONVERT[self._legend_display]
 
     def add_dataset(self, data_label, data):
         """
@@ -48,7 +71,7 @@ class Chart(object):
                                type=self.chart_type,
                                labels=self.labels,
                                datasets=self.datasets,
-                               legend_display=self.legend_display,
+                               legend_display=self._legend_display,
                                title_display=self._title_display,
                                title=self._title
                                )

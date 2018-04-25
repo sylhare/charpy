@@ -21,11 +21,13 @@ class TestChart(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.chart.title = ''
 
-    @unittest.expectedFailure
     def test_505_toggle_legend(self):
-        self.assertFalse(self.chart.legend_display)
-        self.chart.toggle_legend()
-        self.assertTrue(self.chart.legend_display)
+        self.assertEqual(self.chart._legend_display, JS_CONVERT[False])
+        self.chart.toggle_legend_display()
+        self.assertEqual(self.chart._legend_display, JS_CONVERT[True])
+
+    def test_506x_chart_with_wrong_legend_display_value(self):
+        self.assertRaises(ValueError, Chart, 'bar', legend_display="random_stuff")
 
 
 class TestDataset(unittest.TestCase):
