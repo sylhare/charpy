@@ -2,7 +2,7 @@ pandas
 python-dateutil
 flask
 flask-sqlalchemy
-sqlalchemy
+SQLAlchemy
 setuptools
 pypandoc
 coverage==4.1

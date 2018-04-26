@@ -17,7 +17,7 @@ setup(name='charpy',
       license='MIT',
       packages=find_packages(exclude=['docs']),
       include_package_data=True,
-      install_requires=['flask>=0.12', 'flask-sqlalchemy', 'sqlachemy', 'python-dateutil', 'pandas', 'sqlalchemy'],
+      install_requires=['flask>=0.12', 'flask-sqlalchemy', 'SQLAlchemy', 'python-dateutil', 'pandas', 'sqlalchemy'],
       tests_require=['pytest==2.9.2'],
       extras_require={
           'dev': ['pypandoc', 'setuptools'],
