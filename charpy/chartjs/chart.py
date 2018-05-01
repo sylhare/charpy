@@ -16,7 +16,7 @@ class Chart(object):
             raise ValueError("legend_display, can only accept True or False - input: '{}'".format(legend_display))
 
         self._title = ''
-        self._title_display = False
+        self._title_display = JS_CONVERT[False]
 
     @property
     def title(self):

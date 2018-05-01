@@ -9,38 +9,49 @@ class TestChart(unittest.TestCase):
     def test_500x_wrong_chart_type(self):
         self.assertRaises(TypeError, Chart, 'not a chart type')
 
-    def test_501_title_can_be_setted(self):
+    def test_501_title_not_setted_return_None(self):
+        self.assertEqual(self.chart.title, None)
+
+    def test_502_title_can_be_setted(self):
         self.chart.title = "test"
         self.assertEqual(self.chart.title, "test")
+        self.assertTrue(self.chart._title_display)
 
-    def test_503x_wrong_None_title(self):
+    def test_503_title_is_a_chart_attribute(self):
+        self.assertTrue(hasattr(self.chart, 'title'))
+
+    def test_504x_wrong_None_title(self):
         with self.assertRaises(ValueError):
             self.chart.title = None
 
-    def test_504x_wrong_empty_title(self):
+    def test_505x_wrong_empty_title(self):
         with self.assertRaises(ValueError):
             self.chart.title = ''
 
-    def test_505_toggle_legend(self):
+    def test_510_toggle_legend(self):
         self.assertEqual(self.chart._legend_display, JS_CONVERT[False])
         self.chart.toggle_legend_display()
         self.assertEqual(self.chart._legend_display, JS_CONVERT[True])
 
-    def test_506x_chart_with_wrong_legend_display_value(self):
+    def test_511x_chart_with_wrong_legend_display_value(self):
         self.assertRaises(ValueError, Chart, 'bar', legend_display="random_stuff")
+
+    def test_520_add_a_simple_dataset(self):
+        self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
+        self.chart.datasets
 
 
 class TestDataset(unittest.TestCase):
     def setUp(self):
-        self.d = Dataset([1, 2, 3], 'nombres')
+        self.d = Dataset([1, 2, 3], 'numbers')
 
     def test_600_tojson_dataset(self):
-        d_json = '{"backgroundColor": "royalBlue", "borderColor": "white", "data": [1, 2, 3], "label": "nombres"}'
+        d_json = '{"backgroundColor": "royalBlue", "borderColor": "white", "data": [1, 2, 3], "label": "numbers"}'
         self.assertEqual(self.d.to_json(), d_json)
 
     def test_601_dataset_well_created(self):
         self.assertEqual(self.d.data, [1, 2, 3])
-        self.assertEqual(self.d.label, 'nombres')
+        self.assertEqual(self.d.label, 'numbers')
         self.assertEqual(self.d.borderColor, "white")
         self.assertEqual(self.d.backgroundColor, "royalBlue")
 
