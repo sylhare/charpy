@@ -1,5 +1,45 @@
 __chartjs_version__ = "2.7.2"
 
+SCRIPT = "<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/{}/Chart.min.js'>" \
+            "</script>".format(__chartjs_version__)
+CANVAS = "<canvas id='{}' width='600' height='400'></canvas>"
+HTML = '''
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>{}</title>
+                {}
+            </head>
+            <body>
+                <div id="content">
+                    {}
+                </div>
+                <footer>
+                </footer>
+            </body>
+        </html>
+        '''
+CHARTJS = '''
+            <script>
+                new Chart(document.getElementById("{}"), {{
+                    type: '{}',
+                    data: {{
+                      labels: {},
+                      datasets: [ {} ]
+                    }},
+                    options: {{
+                      legend: {{ display: {} }},
+                      title: {{
+                        display: {},
+                        text: '{}'
+                      }}
+                    }}
+                }});
+            
+             </script>
+            '''
+
 JS_CONVERT = {True: 'true', False: 'false'}
 PYTHON_CONVERT = {'true': True, 'false': False}
 

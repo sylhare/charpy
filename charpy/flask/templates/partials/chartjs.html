@@ -11,7 +11,7 @@
         type: '{{ type }}',
         data: {
           labels: {{ labels | tojson }},
-          datasets: [{{ datasets | tojson }}]
+          datasets: [{{ datasets | safe }}]
         },
         options: {
           legend: { display: {{ legend_display }} },

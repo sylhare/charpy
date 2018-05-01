@@ -1,6 +1,6 @@
 import json
 from flask import render_template
-from charpy.chartjs import check_chart_type, JS_CONVERT, PYTHON_CONVERT
+from charpy.chartjs import *
 
 
 class Chart(object):
@@ -8,7 +8,7 @@ class Chart(object):
         self.canvas_id = canvas_id
         self.chart_type = check_chart_type(chart_type)
         self.labels = []
-        self.datasets = None
+        self.datasets = ''
 
         try:
             self._legend_display = JS_CONVERT[legend_display]
@@ -54,7 +54,7 @@ class Chart(object):
         self._legend_display = JS_CONVERT[not PYTHON_CONVERT[self._legend_display]]
         return PYTHON_CONVERT[self._legend_display]
 
-    def add_dataset(self, data_label, data):
+    def add_simple_dataset(self, data_label, data):
         """
 
 
@@ -62,9 +62,47 @@ class Chart(object):
         :param data:
         :return:
         """
-        self.datasets = {"label": data_label, "data": data}
+        dataset_json = json.dumps({"label": data_label, "data": data})
+        self.add_dataset(dataset_json)
+
+    def add_dataset(self, dataset_json):
+        """
+        Add a dataset from a dataset object
+
+        :param dataset_json:
+        :return:
+        """
+        self.datasets += dataset_json + ","
+
+    def render_html(self):
+        """
+        Generate an html page of the chart.
+
+        :return: full html page
+        """
+        return HTML.format(self.title, SCRIPT, self.render_chart_html())
+
+    def render_chart_html(self):
+        """
+        Render the html part of one chart
+
+        :return: the chart in html
+        """
+        return CANVAS.format(self.canvas_id) + CHARTJS.format(self.canvas_id,
+                                                              self.chart_type,
+                                                              self.labels,
+                                                              self.datasets,
+                                                              self._legend_display,
+                                                              self._title_display,
+                                                              self.title)
 
     def render_flask(self, flask_template):
+        """
+        Use flask and the jinja2 templating system to render the chart
+
+        :param flask_template:
+        :return: rendered page
+        """
         return render_template(flask_template,
                                script_local=True,
                                id=self.canvas_id,
@@ -107,3 +145,6 @@ class LineDataset(Dataset):  # pragma: no cover
         super().__init__(data, label)
         self.fill = fill
         self.showLine = showLine
+
+if __name__ == "__main__":
+    print(CHARTJS.format("a", "b", "c", "d", "e", "f", "g"))

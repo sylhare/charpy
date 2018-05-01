@@ -38,7 +38,39 @@ class TestChart(unittest.TestCase):
 
     def test_520_add_a_simple_dataset(self):
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
-        self.chart.datasets
+        self.assertEqual(self.chart.datasets, '{"label": "numbers", "data": [1, 2, 3]},')
+
+    def test_521_add_two_simple_dataset(self):
+        self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
+        self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
+        self.assertEqual(self.chart.datasets, '{"label": "numbers", "data": [1, 2, 3]},'
+                                              '{"label": "numbers", "data": [1, 2, 3]},')
+
+    def test_530_render_chart_html(self):
+        output_html = self.chart.render_chart_html()
+        self.assertTrue("<canvas" in output_html)
+        self.assertTrue("new Chart(document.getElementById" in output_html)
+
+    def test_531_render_chart_html_chart_type(self):
+        output_html = self.chart.render_chart_html()
+        self.assertTrue("type: 'bar" in output_html)
+
+    @unittest.skip
+    def test_532_render_chart_html_labels(self):
+        output_html = self.chart.render_chart_html()
+        self.assertTrue("labels: ''" in output_html)
+
+    @unittest.skip
+    def test_533_render_chart_html_chart_type(self):
+        output_html = self.chart.render_chart_html()
+        self.assertTrue("datasets:[]" in output_html)
+
+    def test_531_render_full_html(self):
+        output_html = self.chart.render_html()
+        self.assertTrue("<!DOCTYPE html>" in output_html)
+        self.assertTrue("<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js" in output_html)
+        self.assertTrue("<canvas" in output_html)
+        self.assertTrue("new Chart(document.getElementById" in output_html)
 
 
 class TestDataset(unittest.TestCase):
