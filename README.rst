@@ -13,7 +13,7 @@ You can have a demo available at
 
 .. code:: bash
 
-    python charpy/app.py
+    python charpy/factory.py
 
 Dependencies
 ------------
@@ -24,7 +24,7 @@ Python
 ~~~~~~
 
 -  Flask - base of the microservice (Jinja2 for templating)
--  SQLAlchemy - for database manipulation
+-  SQLAlchemy - for SQL database manipulation
 -  Pandas - for the dataframe object and data manipulation
 -  dateutils - for the date and time parser
 

@@ -12,7 +12,7 @@ This is a web app designed to crunch data into charts.
 You can have a demo available at [localhost:5001](http://127.0.0.1:5001/)
 
 ```bash
-python charpy/app.py
+python charpy/factory.py
 ```
 
 ## Dependencies
@@ -22,7 +22,7 @@ Used for this project:
 ### Python
  
 - Flask - base of the microservice (Jinja2 for templating)
-- SQLAlchemy - for database manipulation
+- SQLAlchemy - for SQL database manipulation
 - Pandas - for the dataframe object and data manipulation
 - dateutils - for the date and time parser
 

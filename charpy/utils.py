@@ -13,8 +13,10 @@ def readme_md_to_rst():
         import pypandoc
         result = pypandoc.convert_file(README_MD_PATH, 'rst')
 
-    except(IOError, ImportError):
+    except ImportError:
         result = open(README_MD_PATH).read()
+        import warnings
+        warnings.warn("Could not convert to rst because pypandoc could not be imported")
 
     return result
 
