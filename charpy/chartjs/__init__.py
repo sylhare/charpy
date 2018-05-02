@@ -22,7 +22,7 @@ HTML = '''
         '''
 CHARTJS = '''
             <script>
-                new Chart(document.getElementById("{}"), {{
+                new Chart(document.getElementById('{}'), {{
                     type: '{}',
                     data: {{
                       labels: {},

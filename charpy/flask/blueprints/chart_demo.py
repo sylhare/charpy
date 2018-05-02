@@ -27,7 +27,7 @@ def chart_chartjs():
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     chart_sdemo = chart.Chart('bar')
     chart_sdemo.title = "Test chart from template"
-    chart_sdemo.add_dataset('value', demo.df['value'].tolist())
+    chart_sdemo.add_simple_dataset('value', demo.df['value'].tolist())
     chart_sdemo.labels = demo.df['label'].tolist()
 
     return chart_sdemo.render_flask('view/chartjs_default.html')
