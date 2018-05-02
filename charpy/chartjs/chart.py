@@ -20,7 +20,7 @@ class Chart(object):
 
     @property
     def title(self):
-        return self._title
+        """ title require a setter and a getter so a property was creater """
 
     @title.setter
     def title(self, title):
@@ -45,7 +45,7 @@ class Chart(object):
 
     @property
     def labels(self):
-        return self._labels
+        """ title require a setter and a getter so a property was created """
 
     @labels.setter
     def labels(self, labels):
@@ -160,6 +160,3 @@ class LineDataset(Dataset):  # pragma: no cover
         super().__init__(data, label)
         self.fill = fill
         self.showLine = showLine
-
-if __name__ == "__main__":
-    print(CHARTJS.format("a", "b", "c", "d", "e", "f", "g"))

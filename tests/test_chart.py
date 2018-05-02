@@ -19,6 +19,7 @@ class TestChart(unittest.TestCase):
 
     def test_503_title_is_a_chart_attribute(self):
         self.assertTrue(hasattr(self.chart, 'title'))
+        self.assertTrue(isinstance(Chart.title, property))
 
     def test_504x_wrong_None_title(self):
         with self.assertRaises(ValueError):
@@ -37,6 +38,7 @@ class TestChart(unittest.TestCase):
 
     def test_508_labels_is_a_chart_attribute(self):
         self.assertTrue(hasattr(self.chart, 'labels'))
+        self.assertTrue(isinstance(Chart.labels, property))
 
     def test_509x_wrong_not_list_labels(self):
         with self.assertRaises(TypeError):
