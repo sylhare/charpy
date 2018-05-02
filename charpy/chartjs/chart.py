@@ -7,7 +7,7 @@ class Chart(object):
     def __init__(self, chart_type, legend_display=False, canvas_id='chart'):
         self.canvas_id = canvas_id
         self.chart_type = check_chart_type(chart_type)
-        self.labels = []
+        self._labels = []
         self.datasets = ''
 
         try:
@@ -42,6 +42,21 @@ class Chart(object):
             return self._title
         else:
             return None
+
+    @property
+    def labels(self):
+        return self._labels
+
+    @labels.setter
+    def labels(self, labels):
+        if isinstance(labels, list):
+            self._labels = labels
+        else:
+            raise TypeError("Labels can only be list - not '{}'".format(labels))
+
+    @labels.getter
+    def labels(self):
+        return self._labels
 
     def toggle_legend_display(self):
         """
@@ -111,7 +126,7 @@ class Chart(object):
                                datasets=self.datasets,
                                legend_display=self._legend_display,
                                title_display=self._title_display,
-                               title=self._title
+                               title=self.title
                                )
 
 
