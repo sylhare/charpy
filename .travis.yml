@@ -29,8 +29,8 @@ install:
 # commands to run tests
 script:
   - coverage run --source=charpy -m unittest
-  - coverage xml # For Codacy
- # - python -m pytest #TODO
+  - coverage xml                                                      # For Codacy
+  - python -m pytest
   - python setup.py test
 
 after_success:
@@ -38,3 +38,4 @@ after_success:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT    # Code Climate code coverage
   - codecov                                                           # Codecov code coverage
   - python-codacy-coverage -r coverage.xml                            # Codacy code coverage
+  - coverage report -m
