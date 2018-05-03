@@ -77,7 +77,7 @@ class Chart(object):
         :param data:
         :return:
         """
-        dataset_json = json.dumps({"label": data_label, "data": data})
+        dataset_json = json.dumps({"label": data_label, "data": data}, sort_keys=True)
         self.add_dataset(dataset_json)
 
     def add_dataset(self, dataset_json):

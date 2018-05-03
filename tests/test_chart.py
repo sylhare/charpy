@@ -125,7 +125,7 @@ class TestChart(unittest.TestCase):
     def test_543_render_chart_datasets_changed(self):
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
         output_html = self.chart.render_chart_html()
-        self.assertTrue('datasets: [ {"label": "numbers", "data": [1, 2, 3]}, ]' in output_html)
+        self.assertTrue('datasets: [ ' + TEST_SIMPLE_DATASET + ' ]' in output_html)
 
     def test_544_render_chart_id_changed(self):
         self.chart.canvas_id = "new_id"
@@ -140,7 +140,7 @@ class TestChart(unittest.TestCase):
     def test_546_render_chart_with_simple_dataset(self):
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
         output_html = self.chart.render_chart_html()
-        self.assertTrue('datasets: [ {"label": "numbers", "data": [1, 2, 3]}, ]' in output_html)
+        self.assertTrue('datasets: [ ' + TEST_SIMPLE_DATASET + ' ]' in output_html)
 
     def test_547_render_chart_with_dataset(self):
         self.d = Dataset([1, 2, 3], 'numbers')

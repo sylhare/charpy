@@ -20,6 +20,6 @@ TEST_DATA_COLUMN = [
     ['#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC', '#BCAFED']
 ]
 
-TEST_SIMPLE_DATASET = '{"label": "numbers", "data": [1, 2, 3]},'
+TEST_SIMPLE_DATASET = '{"data": [1, 2, 3], "label": "numbers"},'
 
 TEST_DATASET = '{"backgroundColor": "royalBlue", "borderColor": "white", "data": [1, 2, 3], "label": "numbers"},'
