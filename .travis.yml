@@ -33,7 +33,6 @@ install:
 script:
   - coverage run --source=charpy -m unittest
   - coverage xml                                                      # For Codacy
-  - python -m pytest
   - python setup.py test
 
 after_success:
