@@ -1,4 +1,5 @@
 import unittest
+from tests import TEST_DATASET, TEST_SIMPLE_DATASET
 from charpy.chartjs.chart import *
 
 
@@ -54,13 +55,29 @@ class TestChart(unittest.TestCase):
 
     def test_520_add_a_simple_dataset(self):
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
-        self.assertEqual(self.chart.datasets, '{"label": "numbers", "data": [1, 2, 3]},')
+        self.assertEqual(self.chart.datasets, TEST_SIMPLE_DATASET)
 
     def test_521_add_two_simple_dataset(self):
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
-        self.assertEqual(self.chart.datasets, '{"label": "numbers", "data": [1, 2, 3]},'
-                                              '{"label": "numbers", "data": [1, 2, 3]},')
+        self.assertEqual(self.chart.datasets, TEST_SIMPLE_DATASET*2)
+
+    def test_522_add_dataset(self):
+        self.d = Dataset([1, 2, 3], 'numbers')
+        self.chart.add_dataset(self.d)
+        self.assertEqual(self.chart.datasets, TEST_DATASET)
+
+    def test_523_add_two_datasets(self):
+        self.d = Dataset([1, 2, 3], 'numbers')
+        self.chart.add_dataset(self.d)
+        self.chart.add_dataset(self.d)
+        self.assertEqual(self.chart.datasets, TEST_DATASET*2)
+
+    def test_524_add_dataset_and_simple_dataset(self):
+        self.d = Dataset([1, 2, 3], 'numbers')
+        self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
+        self.chart.add_dataset(self.d)
+        self.assertEqual(self.chart.datasets, TEST_SIMPLE_DATASET+TEST_DATASET)
 
     def test_530_render_chart_html(self):
         output_html = self.chart.render_chart_html()
@@ -108,7 +125,7 @@ class TestChart(unittest.TestCase):
     def test_543_render_chart_datasets_changed(self):
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
         output_html = self.chart.render_chart_html()
-        self.assertTrue("""datasets: [ {"label": "numbers", "data": [1, 2, 3]}, ]""" in output_html)
+        self.assertTrue('datasets: [ {"label": "numbers", "data": [1, 2, 3]}, ]' in output_html)
 
     def test_544_render_chart_id_changed(self):
         self.chart.canvas_id = "new_id"
@@ -120,7 +137,19 @@ class TestChart(unittest.TestCase):
         output_html = self.chart.render_chart_html()
         self.assertTrue("type: 'pie'," in output_html)
 
-    def test_540_render_full_html(self):
+    def test_546_render_chart_with_simple_dataset(self):
+        self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
+        output_html = self.chart.render_chart_html()
+        self.assertTrue('datasets: [ {"label": "numbers", "data": [1, 2, 3]}, ]' in output_html)
+
+    def test_547_render_chart_with_dataset(self):
+        self.d = Dataset([1, 2, 3], 'numbers')
+        self.chart.add_dataset(self.d)
+        self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
+        output_html = self.chart.render_chart_html()
+        self.assertTrue(TEST_DATASET+TEST_SIMPLE_DATASET in output_html)
+
+    def test_550_render_full_html(self):
         output_html = self.chart.render_html()
         self.assertTrue("<!DOCTYPE html>" in output_html)
         self.assertTrue("<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js" in output_html)
@@ -133,8 +162,7 @@ class TestDataset(unittest.TestCase):
         self.d = Dataset([1, 2, 3], 'numbers')
 
     def test_600_tojson_dataset(self):
-        d_json = '{"backgroundColor": "royalBlue", "borderColor": "white", "data": [1, 2, 3], "label": "numbers"}'
-        self.assertEqual(self.d.to_json(), d_json)
+        self.assertEqual(self.d.to_json(), TEST_DATASET[:-1])
 
     def test_601_dataset_well_created(self):
         self.assertEqual(self.d.data, [1, 2, 3])

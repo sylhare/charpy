@@ -19,3 +19,7 @@ TEST_DATA_COLUMN = [
     ['10', '9', '8', '7', '6', '4', '7', '8'],
     ['#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC', '#BCAFED']
 ]
+
+TEST_SIMPLE_DATASET = '{"label": "numbers", "data": [1, 2, 3]},'
+
+TEST_DATASET = '{"backgroundColor": "royalBlue", "borderColor": "white", "data": [1, 2, 3], "label": "numbers"},'

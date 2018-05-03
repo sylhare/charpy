@@ -87,6 +87,9 @@ class Chart(object):
         :param dataset_json:
         :return:
         """
+        if isinstance(dataset_json, Dataset):
+            dataset_json = dataset_json.to_json()
+
         self.datasets += dataset_json + ","
 
     def render_html(self):
