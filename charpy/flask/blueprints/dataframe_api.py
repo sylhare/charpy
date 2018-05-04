@@ -31,7 +31,7 @@ def dataframe_html():
     return render_template(os.path.join('view', 'dataframe.html'), body=demo.df.to_html())
 
 
-@bp.route('/dataframe/<string:column>/', methods=['GET'])
+@bp.route('/dataframe/column/<string:column>/', methods=['GET'])
 def dataframe_json_column(column):
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     try:

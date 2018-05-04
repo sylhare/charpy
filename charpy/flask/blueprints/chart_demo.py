@@ -8,13 +8,13 @@ bp = Blueprint('charpy', __name__, template_folder='templates')
 
 
 @bp.route('/')
-@bp.route('/chart_demo/default/')
+@bp.route('/demo/default/')
 def chart_demo():
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     return render_template('view/chart_demo.html', values=demo.df['value'], labels=demo.df['label'], type='pie')
 
 
-@bp.route('/chart_demo/static/')
+@bp.route('/demo/static/')
 def chart_static_demo():
     labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
     values = [10, 9, 8, 7, 6, 4, 7, 8]
@@ -23,7 +23,7 @@ def chart_static_demo():
                            set=zip(values, labels, colors))
 
 
-@bp.route('/chart_demo/charpy/')
+@bp.route('/demo/charpy/')
 def chart_chartjs():
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     chamo = chart.Chart('bar')
@@ -34,7 +34,7 @@ def chart_chartjs():
     return chamo.render_flask('view/chartjs_default.html')
 
 
-@bp.route('/chart_demo/two/')
+@bp.route('/demo/two/')
 def two_chartjs_demo():
     chamo = chart.Chart('bar')
     chamo.title = "Test chart from template"
@@ -47,11 +47,11 @@ def two_chartjs_demo():
     return chart.Chart.render_raw(charts)
 
 
-@bp.route('chart_demo/colored')
+@bp.route('/demo/colored')
 def colored_chart():
     pass
 
 
-@bp.route("/chart_demo/hello/<string:name>/")
+@bp.route("/demo/hello/<string:name>/")
 def hello(name):
     return "hello " + name + "!"
