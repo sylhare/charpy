@@ -80,81 +80,97 @@ class TestChart(unittest.TestCase):
         self.assertEqual(self.chart.datasets, TEST_SIMPLE_DATASET+TEST_DATASET)
 
     def test_530_render_chart_html(self):
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("<canvas" in output_html)
         self.assertTrue("new Chart(document.getElementById" in output_html)
 
     def test_531_render_chart_html_chart_type(self):
-        output_html = self.chart.render_chart_html()
-        self.assertTrue("type: 'bar" in output_html)
+        output_html = self.chart.render_chart()
+        self.assertTrue("type: 'bar'" in output_html)
 
     def test_532_render_chart_html_labels(self):
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("labels: []" in output_html)
 
     def test_533_render_chart_html_chart_type(self):
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("datasets: [  ]" in output_html)
 
     def test_534_render_chart_html_options(self):
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("legend: { display: false }," in output_html)
         self.assertTrue("display: false," in output_html)
         self.assertTrue("text: 'None'" in output_html)
 
     def test_535_render_chart_html_default_id(self):
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("Chart(document.getElementById('chart')" in output_html)
+
+    def test_536_render_chart_html_different_type(self):
+        output_html = self.chart.render_chart('pie')
+        self.assertTrue("type: 'pie'" in output_html)
+
+    def test_537x_render_chart_html_not_chart_type(self):
+        output_html = self.chart.render_chart('blob')
+        self.assertTrue("type: 'bar'" in output_html)
 
     def test_540_render_chart_title_changed(self):
         self.chart.title = "test"
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("display: true," in output_html)
         self.assertTrue("text: 'test'" in output_html)
 
     def test_541_render_chart_legend_toggled(self):
         self.chart.toggle_legend_display()
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("legend: { display: true }," in output_html)
 
     def test_542_render_chart_labels_changed(self):
         self.chart.labels = ["a", "b", "c"]
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("labels: ['a', 'b', 'c']" in output_html)
 
     def test_543_render_chart_datasets_changed(self):
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue('datasets: [ ' + TEST_SIMPLE_DATASET + ' ]' in output_html)
 
     def test_544_render_chart_id_changed(self):
         self.chart.canvas_id = "new_id"
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("document.getElementById('new_id')" in output_html)
 
     def test_545_render_chart_type_changed(self):
         self.chart.chart_type = 'pie'
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue("type: 'pie'," in output_html)
 
     def test_546_render_chart_with_simple_dataset(self):
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue('datasets: [ ' + TEST_SIMPLE_DATASET + ' ]' in output_html)
 
     def test_547_render_chart_with_dataset(self):
         self.d = Dataset([1, 2, 3], 'numbers')
         self.chart.add_dataset(self.d)
         self.chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
-        output_html = self.chart.render_chart_html()
+        output_html = self.chart.render_chart()
         self.assertTrue(TEST_DATASET+TEST_SIMPLE_DATASET in output_html)
 
     def test_550_render_full_html(self):
         output_html = self.chart.render_html()
         self.assertTrue("<!DOCTYPE html>" in output_html)
         self.assertTrue("<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js" in output_html)
-        self.assertTrue("<canvas" in output_html)
+        self.assertTrue("<canvas id='chart'" in output_html)
         self.assertTrue("new Chart(document.getElementById" in output_html)
+
+    def test_551_render_full_html_two_charts(self):
+        charts = self.chart.render_chart() + self.chart.render_chart('pie')
+        output_html = Chart.render_raw(content=charts)
+        self.assertTrue("type: 'pie'," in output_html)
+        self.assertTrue("<canvas id='id_pie'" in output_html)
+        self.assertTrue("type: 'bar'," in output_html)
+        self.assertTrue("<canvas id='chart'" in output_html)
 
 
 class TestDataset(unittest.TestCase):

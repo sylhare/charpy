@@ -92,27 +92,49 @@ class Chart(object):
 
         self.datasets += dataset_json + ","
 
+    @staticmethod
+    def render_raw(content, title='', script=SCRIPT):
+        """
+        Static method to allow to draw a raw HTML which can contain multiple charts
+
+        :param title: default is ''
+        :param script: default is __chartjs_version__
+        :param content: what goes in the body of the html page
+        :return:
+        """
+        return HTML.format(title, script, content)
+
     def render_html(self):
         """
         Generate an html page of the chart.
 
         :return: full html page
         """
-        return HTML.format(self.title, SCRIPT, self.render_chart_html())
 
-    def render_chart_html(self):
+        return Chart.render_raw(self.title, SCRIPT, self.render_chart())
+
+    def render_chart(self, chart_type=None):
         """
         Render the html part of one chart
+        The chart type can be changed on demand if not a right type, will be default.
 
         :return: the chart in html
         """
-        return CANVAS.format(self.canvas_id) + CHARTJS.format(self.canvas_id,
-                                                              self.chart_type,
-                                                              self.labels,
-                                                              self.datasets,
-                                                              self._legend_display,
-                                                              self._title_display,
-                                                              self.title)
+
+        if chart_type is not None and is_chartjs_type(chart_type):
+            chart_type = chart_type
+            canvas_id = "id_" + chart_type
+        else:
+            chart_type = self.chart_type
+            canvas_id = self.canvas_id
+
+        return CANVAS.format(canvas_id) + CHARTJS.format(canvas_id,
+                                                         chart_type,
+                                                         self.labels,
+                                                         self.datasets,
+                                                         self._legend_display,
+                                                         self._title_display,
+                                                         self.title)
 
     def render_flask(self, flask_template):
         """
