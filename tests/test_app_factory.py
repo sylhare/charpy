@@ -38,16 +38,24 @@ class TestAppFactory(unittest.TestCase):
         self.assertTrue(b'pie' in response.data)
         self.assertEqual(response.status_code, 200)
 
-    def test_205_chart_with_chart_object(self):
+    def test_205_chart_with_chart_simple_dataset(self):
         """ Check that static demo is displayed with value """
-        response = self.client.get('/demo/charpy/', content_type='html/text')
+        response = self.client.get('/demo/simple_dataset/', content_type='html/text')
         self.assertTrue(b'bar' in response.data)
         self.assertEqual(response.status_code, 200)
 
     def test_206_chart_with_two_charts(self):
         """ Check that static demo is displayed with value """
-        response = self.client.get('/demo/charpy/', content_type='html/text')
+        response = self.client.get('/demo/two/', content_type='html/text')
         self.assertTrue(b'bar' in response.data)
+        self.assertTrue(b'pie' in response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_207_chart_with_dataset(self):
+        """ Check that static demo is displayed with value """
+        response = self.client.get('/demo/dataset/', content_type='html/text')
+        self.assertTrue(b'bar' in response.data)
+        self.assertTrue(b'"backgroundColor":' in response.data)
         self.assertEqual(response.status_code, 200)
 
     def case_chart_api_with_type(self, chart_type):

@@ -7,7 +7,6 @@ from flask import Blueprint, render_template
 bp = Blueprint('charpy', __name__, template_folder='templates')
 
 
-@bp.route('/')
 @bp.route('/demo/default/')
 def chart_demo():
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
@@ -23,13 +22,26 @@ def chart_static_demo():
                            set=zip(values, labels, colors))
 
 
-@bp.route('/demo/charpy/')
-def chart_chartjs():
+@bp.route('/demo/simple_dataset/')
+def chart_simple_dataset():
     demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
     chamo = chart.Chart('bar')
     chamo.title = "Test chart from template"
     chamo.add_simple_dataset('value', demo.df['value'].tolist())
     chamo.labels = demo.df['label'].tolist()
+
+    return chamo.render_flask('view/chartjs_default.html')
+
+
+@bp.route('/demo/dataset/')
+def chart_dataset():
+    demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
+
+    chamo = chart.Chart('bar')
+    chamo.title = "Test chart from template"
+    chamo.labels = demo.df['label'].tolist()
+    dataset = chart.Dataset(label='value', data=demo.df['value'].tolist())
+    chamo.add_dataset(dataset)
 
     return chamo.render_flask('view/chartjs_default.html')
 
@@ -47,9 +59,19 @@ def two_chartjs_demo():
     return chart.Chart.render_raw(charts)
 
 
-@bp.route('/demo/colored')
+@bp.route('/')
+@bp.route('/demo/colored/')
 def colored_chart():
-    pass
+    demo = Orc(os.path.join(MOCK_PATH, "pcbanking.csv"))
+
+    chamo = chart.Chart('bar')
+    chamo.title = "Test chart from template"
+    chamo.labels = demo.df['label'].tolist()
+    dataset = chart.Dataset(label='value', data=demo.df['value'].tolist())
+    dataset.backgroundColor = color.color_rainbow(dataset.data)
+    chamo.add_dataset(dataset)
+
+    return chamo.render_flask('view/chartjs_default.html')
 
 
 @bp.route("/demo/hello/<string:name>/")

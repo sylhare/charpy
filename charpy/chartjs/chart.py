@@ -84,7 +84,7 @@ class Chart(object):
         """
         Add a dataset from a dataset object
 
-        :param dataset_json:
+        :param dataset_json: Dataset or json
         :return:
         """
         if isinstance(dataset_json, Dataset):
@@ -185,3 +185,13 @@ class LineDataset(Dataset):  # pragma: no cover
         super().__init__(data, label)
         self.fill = fill
         self.showLine = showLine
+
+
+if __name__ == "__main__":  # pragma: no cover
+    chart = Chart('bar')
+    d = Dataset(data=[1, 2, 3], label='numbers')
+    chart.add_simple_dataset(data_label='numbers', data=[1, 2, 3])
+    print(chart.datasets)
+    chart.add_dataset(d)
+    print(d.to_json())
+    print(chart.render_chart())
