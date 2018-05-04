@@ -2,7 +2,9 @@ __chartjs_version__ = "2.7.2"
 
 SCRIPT = "<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/{}/Chart.min.js'>" \
             "</script>".format(__chartjs_version__)
-CANVAS = "<canvas id='{}' width='600' height='400'></canvas>"
+CANVAS = "<div id='chartContainer' style='width:50%; float: left; clear:none;'>" \
+         "   <canvas id='{}'></canvas>" \
+         "</div>"
 HTML = '''
         <!DOCTYPE html>
         <html>

@@ -54,9 +54,9 @@ def two_chartjs_demo():
     chamo.add_simple_dataset('value', demo.df['value'].tolist())
     chamo.labels = demo.df['label'].tolist()
 
-    charts = chamo.render_chart() + chamo.render_chart("pie")
+    charts = "<h1>Two Chart one page!</h1>" + chamo.render_chart() + chamo.render_chart("pie")
 
-    return chart.Chart.render_raw(charts)
+    return chart.Chart.render_raw(content=charts)
 
 
 @bp.route('/')
