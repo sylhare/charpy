@@ -162,12 +162,12 @@ class Orc(object):
                 if column >= 0:
                     c_name = self.df.columns[column]
                 else:
-                    raise TypeError("Error: column should be a positive number")
+                    raise TypeError("TypeError: column should be a positive number")
 
             elif column in self.df:
                 c_name = column
             else:
-                raise ValueError("Error: column should be the number or the name of the column")
+                raise ValueError("ValueError: column should be the number or the name of the column")
 
         except (TypeError, ValueError, IndexError) as error:
             print(error)
@@ -202,6 +202,7 @@ if __name__ == "__main__":  # pragma: no cover
     s.format_column_date('date')
     # s.format_column_list('label')
     # s.create_from_list_column('label')
+    s.format_column_date('test')
     # print(s.df.to_html())
     s.create_sql_db()
 

@@ -37,16 +37,29 @@ def color_based_on_operation(data, matching_criteria, matching_color, not_matchi
 
 
 def is_positive():
+    """
+    :return: a function that determines if the number passed is positive or not
+    """
     return lambda x: True if x >= 0 else False
 
 
 def is_equal(matching_value):
+    """
+    :param matching_value:
+    :return: return a function that determines if the number passed is equat to the matching value that was passed
+    """
     return lambda x: True if x == matching_value else False
 
 
 def color_rainbow(data):
+    """
+
+    :param data: a data array
+    :return: an array of hex color based on the size of the data array
+    """
     rainbow = []
     size = len(data)
+
     for e in range(size):
         red = sin_to_hex(e, 0, size)
         blue = sin_to_hex(e, 2 * math.pi / 3, size)
