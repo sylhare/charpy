@@ -58,6 +58,12 @@ class TestAppFactory(unittest.TestCase):
         self.assertTrue(b'"backgroundColor":' in response.data)
         self.assertEqual(response.status_code, 200)
 
+    def test_310_chart_return_types(self):
+        """ Check that static demo is displayed with value """
+        response = self.client.get('/chart/types/', content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.mimetype, 'application/json')
+
     def case_chart_api_with_type(self, chart_type):
         """ Case for the chart rendered of the good type with the api """
         response = self.client.get('/chart/draw/' + chart_type + '/', content_type='html/text')

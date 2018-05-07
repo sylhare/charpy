@@ -1,10 +1,20 @@
 import os
 from charpy.cruncher import Orc
 from charpy import MOCK_PATH
-from charpy.chartjs import chart, is_chartjs_type
-from flask import Blueprint, abort
+from charpy.chartjs import chart, is_chartjs_type, TYPE
+from flask import Blueprint, abort, Response
 
 bp = Blueprint('chartjs', __name__, template_folder='templates')
+
+
+@bp.route('/chart/types/')
+def get_chart_type():
+    response = Response(
+        response=str(TYPE),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 
 @bp.route('/chart/draw/<string:chartype>/', methods=['GET'])
