@@ -15,9 +15,9 @@ while getopts ':hs:' option; do
     h | --help) echo "$usage"
        exit
        ;;
-    u) seed="$OPTARG"
+    u) seed="$optarg"
        ;;
-    *) printf "missing argument for -%s\n" "$OPTARG" >&2
+    *) printf "missing argument for -%s\n" "$optarg" >&2
        echo "$usage" >&2
        exit 1
        ;;

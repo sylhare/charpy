@@ -1,7 +1,7 @@
 import os
 import unittest
 import datetime
-from charpy import MOCK_PATH, SQL_PATH, TEST_DATABASE_URI
+from charpy import MOCK_PATH, TEST_DATABASE_URI
 from charpy.cruncher import Orc, check_path
 from tests import *
 

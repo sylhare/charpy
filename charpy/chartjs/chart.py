@@ -163,13 +163,13 @@ class Dataset(object):
         self.borderColor = "white"
 
     def set_label(self, label):
-        if type(label) == str:
+        if isinstance(label, str):
             self.label = label
         else:
             raise TypeError("Error: The label should be a string - input '{}'".format(label))
 
     def set_data(self, data):
-        if type(data) == list:
+        if isinstance(data, list):
             self.data = data
         else:
             raise TypeError("Error: data can't be a string - '{}'".format(data))

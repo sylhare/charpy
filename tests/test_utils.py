@@ -32,12 +32,11 @@ class TestConverter(unittest.TestCase):
             import warnings
             with warnings.catch_warnings(record=True) as w:
                 warnings.simplefilter("always")  # Cause all warnings to always be triggered.
-
                 readme_md_to_rst()
 
-                assert len(w) == 1
-                assert issubclass(w[-1].category, ImportWarning)
-                assert "Could not convert to rst because pypandoc could not be imported" in str(w[-1].message)
+                self.assertEqual(len(w), 1)
+                self.assertTrue(issubclass(w[-1].category, ImportWarning))
+                self.assertTrue("Could not convert to rst because pypandoc could not be imported" in str(w[-1].message))
 
 
 if __name__ == "__main__":

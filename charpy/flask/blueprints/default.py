@@ -9,5 +9,5 @@ def page_not_found(error):
 
 
 @bp.app_errorhandler(501)
-def page_not_found(error):
+def function_not_implemented(error):
     return render_template('layout/error.html', color="#006600", error=501, message_1="FEATURE", message_2="NOT IMPLEMENTED"), 501

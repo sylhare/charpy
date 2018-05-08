@@ -33,7 +33,7 @@ class Orc(object):
     DEFAULT_NAMES = ['date', 'label', 'value']
     DEFAULT_SUB_NAMES = ['article', 'city', 'province']
 
-    def __init__(self, path, sep=None, header=None, names=DEFAULT_NAMES):
+    def __init__(self, path, sep=None, header=None, names=None):
         """
 
         :param path: Where the file(s) are to be opened
@@ -47,6 +47,8 @@ class Orc(object):
 
         if sep is None:
             criteria['engine'] = 'python'
+        if names is None:
+            names = self.DEFAULT_NAMES
         if header is None:
             criteria['names'] = names
 
@@ -123,7 +125,7 @@ class Orc(object):
         if c:
             self.df[c] = list(map(lambda x: re.split(regex, x), self.df[c]))
 
-    def create_from_list_column(self, column, names=DEFAULT_SUB_NAMES):
+    def create_from_list_column(self, column, names=None):
         """
         Take a column that has list values and create columns for it
 
@@ -132,6 +134,8 @@ class Orc(object):
 
         :return:
         """
+        if names is None:
+            names = self.DEFAULT_SUB_NAMES
 
         c = self.__check_column(column)
         if c:
