@@ -1,4 +1,6 @@
 import unittest
+import mock
+import sys
 from charpy.utils import *
 
 
@@ -23,6 +25,19 @@ class TestConverter(unittest.TestCase):
         create_readme_rst()
         self.assertTrue(os.path.isfile(README_RST_PATH))
         self.assertTrue(os.path.getsize(README_RST_PATH) > 0)
+
+    def test_904x_error_raise_when_pypandoc_not_imported(self):
+        """ Use mock to test the importError raised and warning issued """
+        with mock.patch.dict(sys.modules, {'pypandoc': None}):
+            import warnings
+            with warnings.catch_warnings(record=True) as w:
+                warnings.simplefilter("always")  # Cause all warnings to always be triggered.
+
+                readme_md_to_rst()
+
+                assert len(w) == 1
+                assert issubclass(w[-1].category, ImportWarning)
+                assert "Could not convert to rst because pypandoc could not be imported" in str(w[-1].message)
 
 
 if __name__ == "__main__":
