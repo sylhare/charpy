@@ -14,8 +14,8 @@ Version 1
 
 For this version the goals were:
 
--  Create an API in python that can be customized easily (finding an
-   implenting a framework)
+-  Create an API in python that can be customized easily (finding and
+   implementing a framework)
 -  Provide a flexible api that can render csv files into charts (only
    basic ones will work)
 

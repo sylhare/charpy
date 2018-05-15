@@ -13,7 +13,7 @@ This is a web app designed to crunch data into charts, maybe like a dashboard.
 
 For this version the goals were:
 
-- Create an API in python that can be customized easily (finding an implenting a framework)
+- Create an API in python that can be customized easily (finding and implementing a framework)
 - Provide a flexible api that can render csv files into charts (only basic ones will work)
     - Have the possibility to render more than one chart per page
     - Have the possibility to color the charts automatically
