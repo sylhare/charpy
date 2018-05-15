@@ -3,13 +3,13 @@
     border-collapse: collapse;
     width: 100%;
     /*color: #15171a;*/
-    font-color: #828B8E
+    font-color: #828B8E;
     font-size: 1rem;
 }
 
 .dataframe th {
     font-weight: 700;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     text-align: left;
     background-color: #f4f8fb;
 }
@@ -44,24 +44,19 @@
 }
 
 .post-full-content table {
-    background: radial-gradient(ellipse at left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 0 center, radial-gradient(ellipse at right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 100% center;
     background-size: 10px 100%, 10px 100%;
-    background-attachment: scroll, scroll;
-    background-repeat: no-repeat;
+    background: radial-gradient(ellipse at left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) radial-gradient(ellipse at right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) no-repeat scroll, scroll 0 center 100% center;
     -webkit-overflow-scrolling: touch;
 }
 
 .post-full-content table td:first-child {
-    background-image: linear-gradient(to right, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
     background-size: 20px 100%;
-    background-repeat: no-repeat;
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%) no-repeat;
 }
 
 .post-full-content table td:last-child {
-    background-image: linear-gradient(to left, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
     background-size: 20px 100%;
-    background-position: 100% 0;
-    background-repeat: no-repeat;
+    background: linear-gradient(to left, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%) no-repeat 100% 0;
 }
 
 .post-full-content table th {
