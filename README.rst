@@ -74,9 +74,9 @@ and maintained.
 
 .. |PyPI version| image:: https://badge.fury.io/py/charpy.svg
    :target: https://badge.fury.io/py/charpy
-.. |Build Status| image:: https://travis-ci.org/Sylhare/charpy.svg?branch=master
-   :target: https://travis-ci.org/Sylhare/charpy
-.. |codecov| image:: https://codecov.io/gh/Sylhare/charpy/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/Sylhare/charpy
+.. |Build Status| image:: https://travis-ci.org/sylhare/charpy.svg?branch=master
+   :target: https://travis-ci.org/sylhare/charpy
+.. |codecov| image:: https://codecov.io/gh/sylhare/charpy/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/sylhare/charpy
 .. |Codacy Badge| image:: https://api.codacy.com/project/badge/Grade/7ecd2366da08459aa8c7af9c489dc65c
-   :target: https://www.codacy.com/app/Sylhare/charpy?utm_source=github.com&utm_medium=referral&utm_content=Sylhare/charpy&utm_campaign=Badge_Grade
+   :target: https://www.codacy.com/app/sylhare/charpy?utm_source=github.com&utm_medium=referral&utm_content=sylhare/charpy&utm_campaign=Badge_Grade
