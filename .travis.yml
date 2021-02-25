@@ -7,7 +7,7 @@ addons:
 sudo: false
 
 notifications:
-   email: false
+  email: false
 
 # Codacy and Code Climate token for coverage
 env:

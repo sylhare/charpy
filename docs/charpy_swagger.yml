@@ -12,18 +12,18 @@ info:
     url: https://github.com/Sylhare/charpy/blob/master/LICENSE
 
 tags:
-- name: "dataframe"
-  description: "Your csv dataframe into json"
-  externalDocs:
-    description: "Find out more about Pandas dataframe"
-    url: "https://pandas.pydata.org"
-- name: "chart"
-  description: "Render your csv into a chartjs graph"
-  externalDocs:
-    description: "Find out more about chartjs"
-    url: "http://www.chartjs.org/"
+  - name: "dataframe"
+    description: "Your csv dataframe into json"
+    externalDocs:
+      description: "Find out more about Pandas dataframe"
+      url: "https://pandas.pydata.org"
+  - name: "chart"
+    description: "Render your csv into a chartjs graph"
+    externalDocs:
+      description: "Find out more about chartjs"
+      url: "http://www.chartjs.org/"
 schemes:
-- "http"
+  - "http"
 
 paths:
   /dataframe:
