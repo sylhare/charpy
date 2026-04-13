@@ -7,6 +7,6 @@ setuptools
 pypandoc
 mock
 coverage==4.1
-pytest==2.9.2
+pytest==9.0.3
 codecov
 codacy-coverage

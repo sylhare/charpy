@@ -18,7 +18,7 @@ setup(name='charpy',
       packages=find_packages(exclude=['docs']),
       include_package_data=True,
       install_requires=['flask>=0.12', 'flask-sqlalchemy', 'SQLAlchemy', 'python-dateutil', 'pandas', 'sqlalchemy'],
-      tests_require=['pytest==2.9.2'],
+      tests_require=['pytest==9.0.3'],
       extras_require={
           'dev': ['pypandoc', 'setuptools'],
           'test': ['coverage==4.1']
